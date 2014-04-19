@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.Services", "TextEncodingConverter.Services\TextEncodingConverter.Services.csproj", "{504D271C-C7BA-4A67-BE78-85814D5ED333}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 Documents", "00 Documents", "{7107BFDE-62E8-4C7C-AD25-E1646A0E4691}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Properties", "Properties", "{02CCF294-E55B-4FF6-8402-A1E1E56CD809}"
+	ProjectSection(SolutionItems) = preProject
+		..\Documents\Properties\SharedAssemblyInfo.cs = ..\Documents\Properties\SharedAssemblyInfo.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Applications", "01 Applications", "{E54026DC-DC7E-43F3-BB00-CABD91BFA742}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Services", "02 Services", "{81A44B9F-5971-4ECE-A9E6-44F6257B0736}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99 Tests", "99 Tests", "{164F2C3F-995F-41E7-955B-F3F726F41866}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Models", "03 Models", "{6652A5F3-C444-483D-9080-B30905511309}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.ViewModels", "TextEncodingConverter.ViewModels\TextEncodingConverter.ViewModels.csproj", "{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{504D271C-C7BA-4A67-BE78-85814D5ED333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{504D271C-C7BA-4A67-BE78-85814D5ED333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{504D271C-C7BA-4A67-BE78-85814D5ED333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{504D271C-C7BA-4A67-BE78-85814D5ED333}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02CCF294-E55B-4FF6-8402-A1E1E56CD809} = {7107BFDE-62E8-4C7C-AD25-E1646A0E4691}
+		{504D271C-C7BA-4A67-BE78-85814D5ED333} = {81A44B9F-5971-4ECE-A9E6-44F6257B0736}
+		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6} = {6652A5F3-C444-483D-9080-B30905511309}
+	EndGlobalSection
+EndGlobal
