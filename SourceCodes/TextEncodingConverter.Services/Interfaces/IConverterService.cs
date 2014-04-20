@@ -1,9 +1,10 @@
-using System.Collections.Generic;
 using Aliencube.TextEncodingConverter.ViewModels;
+using System;
+using System.Collections.Generic;
 
 namespace Aliencube.TextEncodingConverter.Services.Interfaces
 {
-    public interface IConverterService
+    public interface IConverterService : IDisposable
     {
         /// <summary>
         /// Gets the list of encoding information instances.
@@ -19,6 +20,13 @@ namespace Aliencube.TextEncodingConverter.Services.Interfaces
         /// Gets or sets the output parameters.
         /// </summary>
         ParameterInfoViewModel Output { get; set; }
+
+        /// <summary>
+        /// Checks whether the extension of the input file is valid or not.
+        /// </summary>
+        /// <param name="inputFile">Input file path.</param>
+        /// <returns>Returns <c>True</c>, if the extension of the input file is valid; otherwise returns <c>False</c>.</returns>
+        bool IsValidFile(string inputFile);
 
         /// <summary>
         /// Gets the fully qualified directory or file path.
@@ -45,12 +53,5 @@ namespace Aliencube.TextEncodingConverter.Services.Interfaces
         /// <param name="inputFile">Input file path.</param>
         /// <param name="outputDirectory">Output directory.</param>
         void ConvertFile(string inputFile, string outputDirectory);
-
-        /// <summary>
-        /// Checks whether the extension of the input file is valid or not.
-        /// </summary>
-        /// <param name="inputFile">Input file path.</param>
-        /// <returns>Returns <c>True</c>, if the extension of the input file is valid; otherwise returns <c>False</c>.</returns>
-        bool IsValidFile(string inputFile);
     }
 }

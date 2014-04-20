@@ -87,6 +87,21 @@ namespace Aliencube.TextEncodingConverter.Services
         public ParameterInfoViewModel Output { get; set; }
 
         /// <summary>
+        /// Checks whether the extension of the input file is valid or not.
+        /// </summary>
+        /// <param name="inputFile">Input file path.</param>
+        /// <returns>Returns <c>True</c>, if the extension of the input file is valid; otherwise returns <c>False</c>.</returns>
+        public bool IsValidFile(string inputFile)
+        {
+            if (String.IsNullOrWhiteSpace(inputFile))
+                return false;
+
+            var extension = inputFile.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries).Last().ToLower();
+            var extensions = ConfigurationManager.AppSettings["Extensions"].Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            return extensions.Select(p => p.ToLower()).Contains(extension);
+        }
+
+        /// <summary>
         /// Gets the fully qualified directory or file path.
         /// </summary>
         /// <param name="path">Directory or file path.</param>
@@ -178,18 +193,10 @@ namespace Aliencube.TextEncodingConverter.Services
         }
 
         /// <summary>
-        /// Checks whether the extension of the input file is valid or not.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
-        /// <param name="inputFile">Input file path.</param>
-        /// <returns>Returns <c>True</c>, if the extension of the input file is valid; otherwise returns <c>False</c>.</returns>
-        public bool IsValidFile(string inputFile)
+        public void Dispose()
         {
-            if (String.IsNullOrWhiteSpace(inputFile))
-                return false;
-
-            var extension = inputFile.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries).Last().ToLower();
-            var extensions = ConfigurationManager.AppSettings["Extensions"].Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            return extensions.Select(p => p.ToLower()).Contains(extension);
         }
     }
 }
