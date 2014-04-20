@@ -1,6 +1,30 @@
 # Text Encoding Converter #
 
-**Text Encoding Converter** converts text files encoding from one to another, mainly CP949 to UTF-8.
+**Text Encoding Converter** converts text files encoding from one to another, mainly `ks_c_5601-1987` to `UTF-8`.
+
+
+# Getting Started #
+
+**Text Encoding Converter** console application requires the following parameters:
+
+* `/d`|`/f`: Indicates whether the input is directory or file.
+* `/ie:xxxx`: specifies the input file encoding. It can be either codepage or IANA name defined [here](http://msdn.microsoft.com/en-us/library/System.Text.Encoding(v=vs.110).aspx). Double quote might be necessary for input directory/file path.
+* `/oe:xxxx`: specifies the output file encoding. It can be either codepage or IANA name defined [here](http://msdn.microsoft.com/en-us/library/System.Text.Encoding(v=vs.110).aspx). Double quote might be necessary for output directory/file path.
+* `/i:xxxx`: specifies the input path. It can be either directory or file.
+* `/o:xxxx`: specifies the output directory path.
+
+Here is a sample command:
+
+```
+Aliencube.TextEncodingConverter.ConsoleApp.exe /d /ie:949 /oe:utf-8 /i:sample /o:output
+```
+
+
+# Future Release #
+
+* GUI Application for Windows
+* Console Application for Mac
+* GUI Application for Mac
 
 
 # Contribution #
