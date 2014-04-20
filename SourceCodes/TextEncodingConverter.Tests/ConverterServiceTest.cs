@@ -1,11 +1,11 @@
+using Aliencube.TextEncodingConverter.Services;
+using Aliencube.TextEncodingConverter.Services.Interfaces;
+using NSubstitute;
+using NUnit.Framework;
 using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
-using Aliencube.TextEncodingConverter.Services;
-using Aliencube.TextEncodingConverter.Services.Interfaces;
-using NUnit.Framework;
 
 namespace Aliencube.TextEncodingConverter.Tests
 {
@@ -14,18 +14,21 @@ namespace Aliencube.TextEncodingConverter.Tests
     {
         #region SetUp / TearDown
 
+        private IParameterService _parameterService;
         private IConverterService _converterService;
 
         [SetUp]
         public void Init()
         {
-            this._converterService = new ConverterService();
+            this._parameterService = Substitute.For<IParameterService>();
+            this._converterService = new ConverterService(this._parameterService);
         }
 
         [TearDown]
         public void Dispose()
         {
             this._converterService.Dispose();
+            this._parameterService.Dispose();
         }
 
         #endregion SetUp / TearDown
@@ -58,7 +61,7 @@ namespace Aliencube.TextEncodingConverter.Tests
                                      assemblyDirectory,
                                      path);
             var qualifiedPath = this._converterService.GetQualifiedPath(path);
-            var segments = qualifiedPath.Split(new string[] {"\\"}, StringSplitOptions.RemoveEmptyEntries);
+            var segments = qualifiedPath.Split(new string[] { "\\" }, StringSplitOptions.RemoveEmptyEntries);
             var qualifiedDirectory = String.Join("\\", segments.Take(segments.Length - 1)).TrimEnd('\\');
 
             Assert.AreEqual(expected, qualifiedDirectory.Equals(assemblyDirectory));

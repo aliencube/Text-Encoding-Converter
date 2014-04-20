@@ -14,12 +14,12 @@ namespace Aliencube.TextEncodingConverter.Services.Interfaces
         /// <summary>
         /// Gets or sets the input parameters.
         /// </summary>
-        ParameterInfoViewModel Input { get; set; }
+        ParameterInfoViewModel Input { get; }
 
         /// <summary>
         /// Gets or sets the output parameters.
         /// </summary>
-        ParameterInfoViewModel Output { get; set; }
+        ParameterInfoViewModel Output { get; }
 
         /// <summary>
         /// Checks whether the extension of the input file is valid or not.

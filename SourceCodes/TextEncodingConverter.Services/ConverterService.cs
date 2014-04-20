@@ -11,8 +11,13 @@ using System.Threading.Tasks;
 
 namespace Aliencube.TextEncodingConverter.Services
 {
+    /// <summary>
+    /// This represents the converter service entity.
+    /// </summary>
     public class ConverterService : IConverterService
     {
+        private readonly IParameterService _parameterService;
+
         /// <summary>
         /// Initialises a new instance of the ConverterService class.
         /// </summary>
@@ -33,23 +38,9 @@ namespace Aliencube.TextEncodingConverter.Services
         ///     </item>
         /// </list>
         /// </remarks>
-        public ConverterService()
+        public ConverterService(IParameterService parameterService)
         {
-            this.Input = new ParameterInfoViewModel()
-                         {
-                             EncodingInfo = new EncodingInfoViewModel()
-                                            {
-                                                CodePage = 949
-                                            }
-                         };
-            this.Output = new ParameterInfoViewModel()
-                          {
-                              EncodingInfo = new EncodingInfoViewModel()
-                                             {
-                                                 CodePage = 65001
-                                             },
-                              Directories = new List<string>() { "output" }
-                          };
+            this._parameterService = parameterService;
         }
 
         private IList<EncodingInfoViewModel> _encodings;
@@ -76,15 +67,37 @@ namespace Aliencube.TextEncodingConverter.Services
             }
         }
 
+        private ParameterInfoViewModel _input;
+
         /// <summary>
         /// Gets or sets the input parameters.
         /// </summary>
-        public ParameterInfoViewModel Input { get; set; }
+        public ParameterInfoViewModel Input
+        {
+            get
+            {
+                if (this._input == null)
+                    this._input = this._parameterService.GetInput();
+
+                return this._input;
+            }
+        }
+
+        private ParameterInfoViewModel _output;
 
         /// <summary>
         /// Gets or sets the output parameters.
         /// </summary>
-        public ParameterInfoViewModel Output { get; set; }
+        public ParameterInfoViewModel Output
+        {
+            get
+            {
+                if (this._output == null)
+                    this._output = this._parameterService.GetOutput();
+
+                return this._output;
+            }
+        }
 
         /// <summary>
         /// Checks whether the extension of the input file is valid or not.

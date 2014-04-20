@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{504D271C-C7BA-4A67-BE78-85814D5ED333}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{25E2106F-3650-4F1F-8527-4F1B2185062B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Aliencube.TextEncodingConverter.Services</RootNamespace>
-    <AssemblyName>Aliencube.TextEncodingConverter.Services</AssemblyName>
+    <RootNamespace>Aliencube.TextEncodingConverter.ConsoleApp</RootNamespace>
+    <AssemblyName>Aliencube.TextEncodingConverter.ConsoleApp</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,8 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.3.1\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,15 +47,18 @@
     <Compile Include="..\..\Documents\Properties\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="ConversionType.cs" />
-    <Compile Include="ConverterService.cs" />
-    <Compile Include="Interfaces\IConverterService.cs" />
-    <Compile Include="Interfaces\IParameterService.cs" />
-    <Compile Include="ParameterService.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TextEncodingConverter.Services\TextEncodingConverter.Services.csproj">
+      <Project>{504d271c-c7ba-4a67-be78-85814d5ed333}</Project>
+      <Name>TextEncodingConverter.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TextEncodingConverter.ViewModels\TextEncodingConverter.ViewModels.csproj">
       <Project>{fe60181d-51a2-428a-be4b-0f5b8c0e8cc6}</Project>
       <Name>TextEncodingConverter.ViewModels</Name>
