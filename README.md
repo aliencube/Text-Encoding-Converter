@@ -5,6 +5,13 @@
 
 # Getting Started #
 
+## Installation ##
+
+For the console application, there is no need to install. Instead, download the zip file and unzip to your preferred location.
+
+
+## Execution ##
+
 **Text Encoding Converter** console application requires the following parameters:
 
 * `/d`|`/f`: Indicates whether the input is directory or file.
