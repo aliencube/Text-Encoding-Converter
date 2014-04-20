@@ -159,6 +159,9 @@ namespace Aliencube.TextEncodingConverter.Services
             if (!this.IsValidFile(inputFile))
                 return;
 
+            if (!File.Exists(inputFile))
+                return;
+
             var inputPath = this.GetQualifiedPath(inputFile);
             var inputCodepage = this.Input.EncodingInfo.CodePage;
             var inputCodename = this.Input.EncodingInfo.Name;
