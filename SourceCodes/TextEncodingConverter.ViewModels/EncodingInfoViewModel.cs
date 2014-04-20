@@ -14,7 +14,7 @@ namespace Aliencube.TextEncodingConverter.ViewModels
         /// <summary>
         /// Gets or sets the code page.
         /// </summary>
-        public int CodePage { get; set; }
+        public int? CodePage { get; set; }
 
         /// <summary>
         /// Gets or sets the IANA encoding name.
