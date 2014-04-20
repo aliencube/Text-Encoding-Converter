@@ -70,7 +70,6 @@ namespace Aliencube.TextEncodingConverter.Services
 
                 default:
                     throw new InvalidOperationException("ConversionType must be either Directory or File");
-                    break;
             }
 
             param.EncodingInfo = this.GetInputEncoding();
@@ -127,7 +126,7 @@ namespace Aliencube.TextEncodingConverter.Services
             encoding = encoding.Replace("/ie:", "");
 
             var ei = new EncodingInfoViewModel();
-            if (this._codePageRegex.IsMatch(encoding))
+            if (this.CodePageRegex.IsMatch(encoding))
                 ei.CodePage = Int32.Parse(encoding);
             else
                 ei.Name = encoding;
@@ -145,10 +144,10 @@ namespace Aliencube.TextEncodingConverter.Services
             if (String.IsNullOrWhiteSpace(encoding))
                 return new EncodingInfoViewModel() { CodePage = 65001, Name = "utf-8" };
 
-            encoding = encoding.Replace("/ie:", "");
+            encoding = encoding.Replace("/oe:", "");
 
             var ei = new EncodingInfoViewModel();
-            if (this._codePageRegex.IsMatch(encoding))
+            if (this.CodePageRegex.IsMatch(encoding))
                 ei.CodePage = Int32.Parse(encoding);
             else
                 ei.Name = encoding;

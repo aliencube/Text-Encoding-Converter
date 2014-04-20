@@ -188,9 +188,13 @@ namespace Aliencube.TextEncodingConverter.Services
 
             using (var reader = new StreamReader(inputPath, inputEncoding))
             {
+                var directory = this.GetQualifiedPath(outputDirectory);
+                if (!Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+
                 var outputPath = String.Format("{0}\\{1}",
-                                               this.GetQualifiedPath(outputDirectory),
-                                               inputFile.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries).Last());
+                                               directory,
+                                               inputFile.Split(new string[] { "\\" }, StringSplitOptions.RemoveEmptyEntries).Last());
                 var outputCodepage = this.Output.EncodingInfo.CodePage;
                 var outputCodename = this.Output.EncodingInfo.Name;
 

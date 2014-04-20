@@ -6,6 +6,8 @@ namespace Aliencube.TextEncodingConverter.ConsoleApp
 {
     internal class Program
     {
+        private static IContainer _container;
+
         private static void Main(string[] args)
         {
             var builder = new ContainerBuilder();
@@ -13,9 +15,17 @@ namespace Aliencube.TextEncodingConverter.ConsoleApp
             builder.Register(p => new ParameterService(args)).As<IParameterService>().PropertiesAutowired();
             builder.RegisterType<ConverterService>().As<IConverterService>().PropertiesAutowired();
 
-            using (var container = builder.Build())
+            _container = builder.Build();
+
+            Execute();
+        }
+
+        private static void Execute()
+        {
+            using (var scope = _container.BeginLifetimeScope())
             {
-                container.Resolve<ConverterService>().Convert();
+                var service = scope.Resolve<IConverterService>();
+                service.Convert();
             }
         }
     }
