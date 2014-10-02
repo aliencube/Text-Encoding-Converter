@@ -4,10 +4,17 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="500" d:DesignWidth="500"
       Title="Text Encoding Converter - Home">
 
-    <Grid>
-
-    </Grid>
+    <Border BorderThickness="2">
+        <WrapPanel>
+            <ComboBox>
+                <ComboBoxItem Content="1"/>
+                <ComboBoxItem Content="2"/>
+                <ComboBoxItem Content="3"/>
+                <ComboBoxItem Content="4"/>
+            </ComboBox>
+        </WrapPanel>
+    </Border>
 </Page>
