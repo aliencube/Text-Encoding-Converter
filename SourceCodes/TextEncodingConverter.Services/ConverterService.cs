@@ -40,6 +40,11 @@ namespace Aliencube.TextEncodingConverter.Services
         /// </remarks>
         public ConverterService(IParameterService parameterService)
         {
+            if (parameterService == null)
+            {
+                throw new ArgumentNullException("parameterService");
+            }
+
             this._parameterService = parameterService;
         }
 
@@ -77,7 +82,9 @@ namespace Aliencube.TextEncodingConverter.Services
             get
             {
                 if (this._input == null)
+                {
                     this._input = this._parameterService.GetInput();
+                }
 
                 return this._input;
             }
@@ -93,7 +100,9 @@ namespace Aliencube.TextEncodingConverter.Services
             get
             {
                 if (this._output == null)
+                {
                     this._output = this._parameterService.GetOutput();
+                }
 
                 return this._output;
             }
@@ -107,7 +116,9 @@ namespace Aliencube.TextEncodingConverter.Services
         public bool IsValidFile(string inputFile)
         {
             if (String.IsNullOrWhiteSpace(inputFile))
+            {
                 return false;
+            }
 
             var extension = inputFile.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries).Last().ToLower();
             var extensions = ConfigurationManager.AppSettings["Extensions"].Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
@@ -124,11 +135,15 @@ namespace Aliencube.TextEncodingConverter.Services
             path = path.Replace("/", "\\");
 
             if (path.Contains(":\\"))
+            {
                 return path;
+            }
 
             var directory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if (String.IsNullOrWhiteSpace(directory))
+            {
                 return path;
+            }
 
             path = String.Format(path.StartsWith("\\") ? "{0}{1}" : "{0}\\{1}",
                                  directory.TrimEnd('\\'),
@@ -142,11 +157,38 @@ namespace Aliencube.TextEncodingConverter.Services
         /// </summary>
         public void Convert()
         {
+            if (!this._parameterService.Validate())
+            {
+                this.DisplayUsage();
+                return;
+            }
+
             if (this.Input.Directories != null && this.Input.Directories.Any())
+            {
                 Parallel.ForEach(this.Input.Directories, p => this.ConvertFilesInDirectory(p, this.Output.Directories.First()));
+            }
 
             if (this.Input.Files != null && this.Input.Files.Any())
+            {
                 Parallel.ForEach(this.Input.Files, p => this.ConvertFile(p, this.Output.Directories.First()));
+            }
+        }
+
+        /// <summary>
+        /// Displays the usage screen.
+        /// </summary>
+        public void DisplayUsage()
+        {
+            Console.WriteLine("Usage:");
+            Console.WriteLine("    Aliencube.TextEncodingConverter.exe /d|/f /ie:WWW /oe:XXX /i:YYY /o:ZZZ");
+            Console.WriteLine();
+            Console.WriteLine("    /d|/f      Indicates whether the input is directory(/d) or file(/f)");
+            Console.WriteLine("    /ie:WWW    Specifies the input file encoding");
+            Console.WriteLine("    /oe:XXX    Specifies the output file encoding");
+            Console.WriteLine("    /i:YYY     Specifies the input directory/file path");
+            Console.WriteLine("    /o:ZZZ     Specifies the output directpry path");
+            Console.WriteLine();
+            Console.WriteLine("    NOTE: Either YYY or ZZZ can be wrapped with quotation marks for some cases");
         }
 
         /// <summary>
@@ -159,7 +201,9 @@ namespace Aliencube.TextEncodingConverter.Services
             var directory = this.GetQualifiedPath(inputDirectory);
             var files = Directory.GetFiles(directory);
             if (files.Any())
+            {
                 Parallel.ForEach(files, p => this.ConvertFile(p, outputDirectory));
+            }
         }
 
         /// <summary>
@@ -170,17 +214,23 @@ namespace Aliencube.TextEncodingConverter.Services
         public void ConvertFile(string inputFile, string outputDirectory)
         {
             if (!this.IsValidFile(inputFile))
+            {
                 return;
+            }
 
             if (!File.Exists(inputFile))
+            {
                 return;
+            }
 
             var inputPath = this.GetQualifiedPath(inputFile);
             var inputCodepage = this.Input.EncodingInfo.CodePage;
             var inputCodename = this.Input.EncodingInfo.Name;
 
             if (!inputCodepage.HasValue && String.IsNullOrWhiteSpace(inputCodename))
+            {
                 throw new ApplicationException("Either codepage or codename for input must be specified for conversion");
+            }
 
             var inputEncoding = inputCodepage.HasValue
                                     ? Encoding.GetEncoding(inputCodepage.Value)
@@ -190,7 +240,9 @@ namespace Aliencube.TextEncodingConverter.Services
             {
                 var directory = this.GetQualifiedPath(outputDirectory);
                 if (!Directory.Exists(directory))
+                {
                     Directory.CreateDirectory(directory);
+                }
 
                 var outputPath = String.Format("{0}\\{1}",
                                                directory,
@@ -199,7 +251,9 @@ namespace Aliencube.TextEncodingConverter.Services
                 var outputCodename = this.Output.EncodingInfo.Name;
 
                 if (!outputCodepage.HasValue && String.IsNullOrWhiteSpace(outputCodename))
+                {
                     throw new ApplicationException("Either codepage or codename for output must be specified for conversion");
+                }
 
                 var outputEncoding = outputCodepage.HasValue
                                          ? Encoding.GetEncoding(outputCodepage.Value)

@@ -41,6 +41,11 @@ namespace Aliencube.TextEncodingConverter.Services.Interfaces
         void Convert();
 
         /// <summary>
+        /// Displays the usage screen.
+        /// </summary>
+        void DisplayUsage();
+
+        /// <summary>
         /// Converts files in a given directory.
         /// </summary>
         /// <param name="inputDirectory">Input directory.</param>

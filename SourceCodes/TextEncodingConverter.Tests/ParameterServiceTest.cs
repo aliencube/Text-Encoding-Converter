@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Aliencube.TextEncodingConverter.Services;
 using Aliencube.TextEncodingConverter.Services.Interfaces;
-using NSubstitute;
+using FluentAssertions;
 using NUnit.Framework;
+using System.Linq;
 
 namespace Aliencube.TextEncodingConverter.Tests
 {
@@ -24,12 +21,28 @@ namespace Aliencube.TextEncodingConverter.Tests
         [TearDown]
         public void Dispose()
         {
+            if (this._parameterService != null)
             this._parameterService.Dispose();
         }
 
-        #endregion
+        #endregion SetUp / TearDown
 
         #region Tests
+
+        [Test]
+        [TestCase(true, "/d", "/ie:949", "/oe:utf-8", "/i:test", "/o:output")]
+        [TestCase(false, "/ie:949", "/oe:utf-8", "/i:test", "/o:output")]
+        [TestCase(false, "/d", "/oe:utf-8", "/i:test", "/o:output")]
+        [TestCase(false, "/d", "/ie:949", "/i:test", "/o:output")]
+        [TestCase(false, "/d", "/ie:949", "/oe:utf-8", "/o:output")]
+        [TestCase(false, "/d", "/ie:949", "/oe:utf-8", "/i:test")]
+        public void GetValidated_GivenArgs_ReturnValidated(bool expected, params string[] args)
+        {
+            this._parameterService = new ParameterService(args);
+            var validated = this._parameterService.Validate();
+
+            validated.Should().Be(expected);
+        }
 
         [Test]
         [TestCase("/d", "/ie:949", "/oe:utf-8", "/i:test", "/o:output")]
@@ -63,6 +76,6 @@ namespace Aliencube.TextEncodingConverter.Tests
             Assert.AreEqual(conversionType, ConversionType.Directory);
         }
 
-        #endregion
+        #endregion Tests
     }
 }

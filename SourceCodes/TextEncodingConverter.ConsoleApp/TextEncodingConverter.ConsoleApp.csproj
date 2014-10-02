@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Aliencube.TextEncodingConverter.ConsoleApp</RootNamespace>
-    <AssemblyName>Aliencube.TextEncodingConverter.ConsoleApp</AssemblyName>
+    <AssemblyName>Aliencube.TextEncodingConverter</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

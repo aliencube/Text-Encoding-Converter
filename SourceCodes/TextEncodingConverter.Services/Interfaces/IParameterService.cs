@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Aliencube.TextEncodingConverter.ViewModels;
+using System;
 using System.Text.RegularExpressions;
-using Aliencube.TextEncodingConverter.ViewModels;
 
 namespace Aliencube.TextEncodingConverter.Services.Interfaces
 {
@@ -10,6 +10,12 @@ namespace Aliencube.TextEncodingConverter.Services.Interfaces
         /// Gets the regular expression instance to filter codepage.
         /// </summary>
         Regex CodePageRegex { get; }
+
+        /// <summary>
+        /// Validates the parameter inputs.
+        /// </summary>
+        /// <returns>Returns <c>True</c>, if all parameters are valid; otherwise returns <c>False</c>.</returns>
+        bool Validate();
 
         /// <summary>
         /// Gets the input parameter.
