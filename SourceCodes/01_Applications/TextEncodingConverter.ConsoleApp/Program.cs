@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
-using Aliencube.TextEncodingConverter.Services;
+﻿using Aliencube.TextEncodingConverter.Services;
 using Aliencube.TextEncodingConverter.Services.Interfaces;
 using Autofac;
 using System;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace Aliencube.TextEncodingConverter.ConsoleApp

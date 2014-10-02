@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Aliencube.TextEncodingConverter.ViewModels
+﻿namespace Aliencube.TextEncodingConverter.ViewModels
 {
     /// <summary>
     /// This represents the view model containing encoding information.

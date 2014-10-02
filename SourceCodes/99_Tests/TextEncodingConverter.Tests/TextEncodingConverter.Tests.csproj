@@ -67,7 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Documents\Properties\SharedAssemblyInfo.cs">
+    <Compile Include="..\..\..\Documents\Properties\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ConverterServiceTest.cs" />
@@ -79,11 +79,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TextEncodingConverter.Services\TextEncodingConverter.Services.csproj">
+    <ProjectReference Include="..\..\02_Services\TextEncodingConverter.Services\TextEncodingConverter.Services.csproj">
       <Project>{504d271c-c7ba-4a67-be78-85814d5ed333}</Project>
       <Name>TextEncodingConverter.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TextEncodingConverter.ViewModels\TextEncodingConverter.ViewModels.csproj">
+    <ProjectReference Include="..\..\03_Models\TextEncodingConverter.ViewModels\TextEncodingConverter.ViewModels.csproj">
       <Project>{fe60181d-51a2-428a-be4b-0f5b8c0e8cc6}</Project>
       <Name>TextEncodingConverter.ViewModels</Name>
     </ProjectReference>
