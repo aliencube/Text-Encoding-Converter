@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.ViewM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.Tests", "99_Tests\TextEncodingConverter.Tests\TextEncodingConverter.Tests.csproj", "{DD4770F4-892A-47BE-9DA0-64317BC8403D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.WpfApp", "01_Applications\TextEncodingConverter.WpfApp\TextEncodingConverter.WpfApp.csproj", "{3EA936C2-A0DC-4BA3-950C-ACB710F605E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{DD4770F4-892A-47BE-9DA0-64317BC8403D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD4770F4-892A-47BE-9DA0-64317BC8403D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD4770F4-892A-47BE-9DA0-64317BC8403D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EA936C2-A0DC-4BA3-950C-ACB710F605E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EA936C2-A0DC-4BA3-950C-ACB710F605E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EA936C2-A0DC-4BA3-950C-ACB710F605E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EA936C2-A0DC-4BA3-950C-ACB710F605E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{02CCF294-E55B-4FF6-8402-A1E1E56CD809} = {7107BFDE-62E8-4C7C-AD25-E1646A0E4691}
 		{25E2106F-3650-4F1F-8527-4F1B2185062B} = {E54026DC-DC7E-43F3-BB00-CABD91BFA742}
+		{3EA936C2-A0DC-4BA3-950C-ACB710F605E0} = {E54026DC-DC7E-43F3-BB00-CABD91BFA742}
 		{504D271C-C7BA-4A67-BE78-85814D5ED333} = {81A44B9F-5971-4ECE-A9E6-44F6257B0736}
 		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6} = {6652A5F3-C444-483D-9080-B30905511309}
 		{DD4770F4-892A-47BE-9DA0-64317BC8403D} = {164F2C3F-995F-41E7-955B-F3F726F41866}
