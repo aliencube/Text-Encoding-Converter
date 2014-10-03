@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -104,6 +105,16 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\02_Services\TextEncodingConverter.Services\TextEncodingConverter.Services.csproj">
+      <Project>{504d271c-c7ba-4a67-be78-85814d5ed333}</Project>
+      <Name>TextEncodingConverter.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\03_Models\TextEncodingConverter.ViewModels\TextEncodingConverter.ViewModels.csproj">
+      <Project>{fe60181d-51a2-428a-be4b-0f5b8c0e8cc6}</Project>
+      <Name>TextEncodingConverter.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

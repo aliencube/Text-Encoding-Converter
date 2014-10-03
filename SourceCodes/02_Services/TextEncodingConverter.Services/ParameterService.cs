@@ -22,16 +22,23 @@ namespace Aliencube.TextEncodingConverter.Services
         /// <summary>
         /// Initialises a new instance of the ParameterService class.
         /// </summary>
-        /// <param name="args">Arguments taken from the application.</param>
-        public ParameterService(IList<string> args)
+        public ParameterService()
         {
-            this._args = args ?? new List<string>();
-
             this._df = new Regex("^/[df]$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             this._ie = new Regex("^/ie\\:", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             this._oe = new Regex("^/oe\\:", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             this._i = new Regex("^/i\\:", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             this._o = new Regex("^/o\\:", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        }
+
+        /// <summary>
+        /// Initialises a new instance of the ParameterService class.
+        /// </summary>
+        /// <param name="args">Arguments taken from the application.</param>
+        public ParameterService(IList<string> args)
+            :this()
+        {
+            this._args = args ?? new List<string>();
         }
 
         private Regex _codePageRegex;

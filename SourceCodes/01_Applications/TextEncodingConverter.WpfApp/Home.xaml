@@ -9,7 +9,7 @@
 
     <Border BorderThickness="2">
         <WrapPanel>
-            <ComboBox>
+            <ComboBox HorizontalContentAlignment="Stretch">
                 <ComboBoxItem Content="1"/>
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="3"/>
