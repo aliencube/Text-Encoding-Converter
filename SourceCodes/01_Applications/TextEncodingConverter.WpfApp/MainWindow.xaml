@@ -10,10 +10,12 @@
         <StackPanel Grid.Row="0">
             <ComboBox x:Name="InputEncoding" />
             <ComboBox x:Name="OutputEncoding" />
-            <Button x:Name="Browse" Content="Browse" />
+            <Button x:Name="Browse" Content="Browse" Click="Browse_Click" />
+            <TextBlock x:Name="Filenames" />
         </StackPanel>
         <StackPanel Grid.Row="1">
-            
+            <Button x:Name="Convert" Content="Convert" Click="Convert_Click" />
+            <TextBlock x:Name="ConvertedNames" />
         </StackPanel>
     </Grid>
 </Window>

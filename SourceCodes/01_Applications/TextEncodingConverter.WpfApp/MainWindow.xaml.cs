@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Aliencube.TextEncodingConverter.WpfApp
 {
@@ -43,6 +45,33 @@ namespace Aliencube.TextEncodingConverter.WpfApp
             this.InputEncoding.SelectedIndex = 0;
             this.OutputEncoding.ItemsSource = outputs;
             this.OutputEncoding.SelectedIndex = 0;
+        }
+
+        private void Browse_Click(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new CommonOpenFileDialog()
+                                {
+                                    AllowNonFileSystemItems = true,
+                                    Multiselect = true
+                                })
+            {
+                dialog.Filters.Add(new CommonFileDialogFilter("Text documents", "*.txt;*.srt;*.smi"));
+                dialog.Filters.Add(new CommonFileDialogFilter("All documents", "*.*"));
+
+                var result = dialog.ShowDialog();
+                if (result != CommonFileDialogResult.Ok)
+                {
+                    return;
+                }
+
+                var filenames = dialog.FileNames;
+                this.Filenames.Text = String.Join("\r\n", filenames);
+            }
+        }
+
+        private void Convert_Click(object sender, RoutedEventArgs e)
+        {
+            var args = new List<string>() { "/f" };
         }
     }
 }
