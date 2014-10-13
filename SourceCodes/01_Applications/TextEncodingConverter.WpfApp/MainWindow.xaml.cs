@@ -1,11 +1,10 @@
 ﻿using Aliencube.TextEncodingConverter.Services;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Win32;
-using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Aliencube.TextEncodingConverter.WpfApp
 {
@@ -65,7 +64,7 @@ namespace Aliencube.TextEncodingConverter.WpfApp
                 }
 
                 var filenames = dialog.FileNames;
-                this.Filenames.Text = String.Join("\r\n", filenames);
+                //this.Filenames.Text = String.Join("\r\n", filenames);
             }
         }
 
