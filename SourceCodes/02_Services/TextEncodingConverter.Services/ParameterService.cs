@@ -1,5 +1,5 @@
-﻿using Aliencube.TextEncodingConverter.Services.Interfaces;
-using Aliencube.TextEncodingConverter.ViewModels;
+﻿using Aliencube.TextEncodingConverter.DataContainers;
+using Aliencube.TextEncodingConverter.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -106,9 +106,9 @@ namespace Aliencube.TextEncodingConverter.Services
         /// Gets the input parameter.
         /// </summary>
         /// <returns>Returns the input parameter.</returns>
-        public ParameterInfoViewModel GetInput()
+        public ParameterInfoDataContainer GetInput()
         {
-            var param = new ParameterInfoViewModel();
+            var param = new ParameterInfoDataContainer();
 
             var source = this._args.FirstOrDefault(p => p.ToLower().StartsWith("/i:"));
             if (String.IsNullOrWhiteSpace(source))
@@ -145,9 +145,9 @@ namespace Aliencube.TextEncodingConverter.Services
         /// Gets the output parameter.
         /// </summary>
         /// <returns>Returns the output parameter.</returns>
-        public ParameterInfoViewModel GetOutput()
+        public ParameterInfoDataContainer GetOutput()
         {
-            var param = new ParameterInfoViewModel();
+            var param = new ParameterInfoDataContainer();
 
             var source = this._args.FirstOrDefault(p => p.ToLower().StartsWith("/o:"));
             if (String.IsNullOrWhiteSpace(source))
@@ -188,17 +188,17 @@ namespace Aliencube.TextEncodingConverter.Services
         /// Gets the input encoding information.
         /// </summary>
         /// <returns>Returns the input encoding information.</returns>
-        public EncodingInfoViewModel GetInputEncoding()
+        public EncodingInfoDataContainer GetInputEncoding()
         {
             var encoding = this._args.FirstOrDefault(p => p.ToLower().StartsWith("/ie:"));
             if (String.IsNullOrWhiteSpace(encoding))
             {
-                return new EncodingInfoViewModel() { CodePage = 949, Name = "ks_c_5601-1987" };
+                return new EncodingInfoDataContainer() { CodePage = 949, Name = "ks_c_5601-1987" };
             }
 
             encoding = encoding.Replace("/ie:", "");
 
-            var ei = new EncodingInfoViewModel();
+            var ei = new EncodingInfoDataContainer();
             if (this.CodePageRegex.IsMatch(encoding))
             {
                 ei.CodePage = Int32.Parse(encoding);
@@ -215,17 +215,17 @@ namespace Aliencube.TextEncodingConverter.Services
         /// Gets the output encoding information.
         /// </summary>
         /// <returns>Returns the output encoding information.</returns>
-        public EncodingInfoViewModel GetOutputEncoding()
+        public EncodingInfoDataContainer GetOutputEncoding()
         {
             var encoding = this._args.FirstOrDefault(p => p.ToLower().StartsWith("/oe:"));
             if (String.IsNullOrWhiteSpace(encoding))
             {
-                return new EncodingInfoViewModel() { CodePage = 65001, Name = "utf-8" };
+                return new EncodingInfoDataContainer() { CodePage = 65001, Name = "utf-8" };
             }
 
             encoding = encoding.Replace("/oe:", "");
 
-            var ei = new EncodingInfoViewModel();
+            var ei = new EncodingInfoDataContainer();
             if (this.CodePageRegex.IsMatch(encoding))
             {
                 ei.CodePage = Int32.Parse(encoding);

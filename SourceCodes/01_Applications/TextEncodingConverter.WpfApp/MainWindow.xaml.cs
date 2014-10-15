@@ -35,15 +35,15 @@ namespace Aliencube.TextEncodingConverter.WpfApp
                                              Content = String.Format("{0}:::{1}:::{2}", p.CodePage, p.Name, p.DisplayName)
                                          })
                             .ToList();
-            var inputs = new List<ComboBoxItem>() { new ComboBoxItem() { Content = "Input Encoding" } };
+            var inputs = new List<ComboBoxItem>();
             inputs.AddRange(items);
-            var outputs = new List<ComboBoxItem>() { new ComboBoxItem() { Content = "Output Encoding" } };
+            var outputs = new List<ComboBoxItem>();
             outputs.AddRange(items);
 
             this.InputEncoding.ItemsSource = inputs;
-            this.InputEncoding.SelectedIndex = 0;
+            this.InputEncoding.Items.Cast<ComboBoxItem>().Single(p => ((string) p.Content).StartsWith("949")).IsSelected = true;
             this.OutputEncoding.ItemsSource = outputs;
-            this.OutputEncoding.SelectedIndex = 0;
+            this.OutputEncoding.Items.Cast<ComboBoxItem>().Single(p => ((string)p.Content).StartsWith("65001")).IsSelected = true;
         }
 
         private void Browse_Click(object sender, RoutedEventArgs e)
@@ -64,7 +64,7 @@ namespace Aliencube.TextEncodingConverter.WpfApp
                 }
 
                 var filenames = dialog.FileNames;
-                //this.Filenames.Text = String.Join("\r\n", filenames);
+                this.Filenames.ItemsSource = filenames;
             }
         }
 

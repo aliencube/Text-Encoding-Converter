@@ -41,9 +41,6 @@
     <Reference Include="Autofac">
       <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -79,9 +76,9 @@
       <Project>{504d271c-c7ba-4a67-be78-85814d5ed333}</Project>
       <Name>TextEncodingConverter.Services</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\03_Models\TextEncodingConverter.ViewModels\TextEncodingConverter.ViewModels.csproj">
-      <Project>{fe60181d-51a2-428a-be4b-0f5b8c0e8cc6}</Project>
-      <Name>TextEncodingConverter.ViewModels</Name>
+    <ProjectReference Include="..\..\03_Models\TextEncodingConverter.DataContainers\TextEncodingConverter.DataContainers.csproj">
+      <Project>{d7d65ea6-77ff-4204-b7e9-0566b508a43b}</Project>
+      <Name>TextEncodingConverter.DataContainers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

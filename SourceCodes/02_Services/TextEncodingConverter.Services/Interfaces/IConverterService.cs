@@ -1,6 +1,6 @@
-using Aliencube.TextEncodingConverter.ViewModels;
 using System;
 using System.Collections.Generic;
+using Aliencube.TextEncodingConverter.DataContainers;
 
 namespace Aliencube.TextEncodingConverter.Services.Interfaces
 {
@@ -9,17 +9,17 @@ namespace Aliencube.TextEncodingConverter.Services.Interfaces
         /// <summary>
         /// Gets the list of encoding information instances.
         /// </summary>
-        IList<EncodingInfoViewModel> Encodings { get; }
+        IList<EncodingInfoDataContainer> Encodings { get; }
 
         /// <summary>
         /// Gets or sets the input parameters.
         /// </summary>
-        ParameterInfoViewModel Input { get; }
+        ParameterInfoDataContainer Input { get; }
 
         /// <summary>
         /// Gets or sets the output parameters.
         /// </summary>
-        ParameterInfoViewModel Output { get; }
+        ParameterInfoDataContainer Output { get; }
 
         /// <summary>
         /// Checks whether the extension of the input file is valid or not.

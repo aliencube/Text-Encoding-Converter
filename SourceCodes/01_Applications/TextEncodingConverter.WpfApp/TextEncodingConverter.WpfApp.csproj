@@ -76,10 +76,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Home.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -90,9 +86,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Home.xaml.cs">
-      <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -134,6 +127,10 @@
     <ProjectReference Include="..\..\02_Services\TextEncodingConverter.Services\TextEncodingConverter.Services.csproj">
       <Project>{504d271c-c7ba-4a67-be78-85814d5ed333}</Project>
       <Name>TextEncodingConverter.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\03_Models\TextEncodingConverter.DataContainers\TextEncodingConverter.DataContainers.csproj">
+      <Project>{d7d65ea6-77ff-4204-b7e9-0566b508a43b}</Project>
+      <Name>TextEncodingConverter.DataContainers</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\03_Models\TextEncodingConverter.ViewModels\TextEncodingConverter.ViewModels.csproj">
       <Project>{fe60181d-51a2-428a-be4b-0f5b8c0e8cc6}</Project>

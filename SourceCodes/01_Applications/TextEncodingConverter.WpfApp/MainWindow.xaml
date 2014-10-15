@@ -58,8 +58,8 @@
                             />
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" Grid.Row="0">
-                    <Label Content="Results" />
+                <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center">
+                    <CheckBox x:Name="AllowBackup" Content="Backup" IsChecked="True" />
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="1">

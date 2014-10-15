@@ -1,6 +1,6 @@
-﻿using Aliencube.TextEncodingConverter.ViewModels;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
+using Aliencube.TextEncodingConverter.DataContainers;
 
 namespace Aliencube.TextEncodingConverter.Services.Interfaces
 {
@@ -21,13 +21,13 @@ namespace Aliencube.TextEncodingConverter.Services.Interfaces
         /// Gets the input parameter.
         /// </summary>
         /// <returns>Returns the input parameter.</returns>
-        ParameterInfoViewModel GetInput();
+        ParameterInfoDataContainer GetInput();
 
         /// <summary>
         /// Gets the output parameter.
         /// </summary>
         /// <returns>Returns the output parameter.</returns>
-        ParameterInfoViewModel GetOutput();
+        ParameterInfoDataContainer GetOutput();
 
         /// <summary>
         /// Gets the conversion type.
@@ -39,12 +39,12 @@ namespace Aliencube.TextEncodingConverter.Services.Interfaces
         /// Gets the input encoding information.
         /// </summary>
         /// <returns>Returns the input encoding information.</returns>
-        EncodingInfoViewModel GetInputEncoding();
+        EncodingInfoDataContainer GetInputEncoding();
 
         /// <summary>
         /// Gets the output encoding information.
         /// </summary>
         /// <returns>Returns the output encoding information.</returns>
-        EncodingInfoViewModel GetOutputEncoding();
+        EncodingInfoDataContainer GetOutputEncoding();
     }
 }

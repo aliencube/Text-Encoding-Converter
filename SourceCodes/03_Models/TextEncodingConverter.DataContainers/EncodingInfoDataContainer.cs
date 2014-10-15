@@ -1,9 +1,9 @@
-﻿namespace Aliencube.TextEncodingConverter.ViewModels
+﻿namespace Aliencube.TextEncodingConverter.DataContainers
 {
     /// <summary>
     /// This represents the view model containing encoding information.
     /// </summary>
-    public class EncodingInfoViewModel
+    public class EncodingInfoDataContainer
     {
         /// <summary>
         /// Gets or sets the code page.

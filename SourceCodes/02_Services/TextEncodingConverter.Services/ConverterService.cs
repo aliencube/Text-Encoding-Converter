@@ -1,5 +1,5 @@
-﻿using Aliencube.TextEncodingConverter.Services.Interfaces;
-using Aliencube.TextEncodingConverter.ViewModels;
+﻿using Aliencube.TextEncodingConverter.DataContainers;
+using Aliencube.TextEncodingConverter.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -48,19 +48,19 @@ namespace Aliencube.TextEncodingConverter.Services
             this._parameterService = parameterService;
         }
 
-        private IList<EncodingInfoViewModel> _encodings;
+        private IList<EncodingInfoDataContainer> _encodings;
 
         /// <summary>
         /// Gets the list of encoding information instances.
         /// </summary>
-        public IList<EncodingInfoViewModel> Encodings
+        public IList<EncodingInfoDataContainer> Encodings
         {
             get
             {
                 if (this._encodings == null || !this._encodings.Any())
                 {
                     this._encodings = Encoding.GetEncodings()
-                                              .Select(p => new EncodingInfoViewModel()
+                                              .Select(p => new EncodingInfoDataContainer()
                                                            {
                                                                CodePage = p.CodePage,
                                                                Name = p.Name,
@@ -72,12 +72,12 @@ namespace Aliencube.TextEncodingConverter.Services
             }
         }
 
-        private ParameterInfoViewModel _input;
+        private ParameterInfoDataContainer _input;
 
         /// <summary>
         /// Gets or sets the input parameters.
         /// </summary>
-        public ParameterInfoViewModel Input
+        public ParameterInfoDataContainer Input
         {
             get
             {
@@ -90,12 +90,12 @@ namespace Aliencube.TextEncodingConverter.Services
             }
         }
 
-        private ParameterInfoViewModel _output;
+        private ParameterInfoDataContainer _output;
 
         /// <summary>
         /// Gets or sets the output parameters.
         /// </summary>
-        public ParameterInfoViewModel Output
+        public ParameterInfoDataContainer Output
         {
             get
             {

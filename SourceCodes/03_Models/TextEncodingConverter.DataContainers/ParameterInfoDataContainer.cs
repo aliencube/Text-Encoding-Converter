@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 
-namespace Aliencube.TextEncodingConverter.ViewModels
+namespace Aliencube.TextEncodingConverter.DataContainers
 {
     /// <summary>
     /// This represents the view model containing parameters information.
     /// </summary>
-    public class ParameterInfoViewModel
+    public class ParameterInfoDataContainer
     {
         /// <summary>
         /// Gets or sets the encoding information.
         /// </summary>
-        public EncodingInfoViewModel EncodingInfo { get; set; }
+        public EncodingInfoDataContainer EncodingInfo { get; set; }
 
         /// <summary>
         /// Gets or sets the list of directories.
