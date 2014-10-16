@@ -12,12 +12,12 @@ namespace Aliencube.TextEncodingConverter.Services
     /// </summary>
     public class ParameterService : IParameterService
     {
-        private readonly IList<string> _args;
         private readonly Regex _df;
         private readonly Regex _ie;
         private readonly Regex _oe;
         private readonly Regex _i;
         private readonly Regex _o;
+        private readonly Regex _codePageRegex;
 
         /// <summary>
         /// Initialises a new instance of the ParameterService class.
@@ -29,34 +29,36 @@ namespace Aliencube.TextEncodingConverter.Services
             this._oe = new Regex("^/oe\\:", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             this._i = new Regex("^/i\\:", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             this._o = new Regex("^/o\\:", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+            this._codePageRegex = new Regex(@"^\d+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         }
 
         /// <summary>
         /// Initialises a new instance of the ParameterService class.
         /// </summary>
         /// <param name="args">Arguments taken from the application.</param>
-        public ParameterService(IList<string> args)
-            :this()
+        public ParameterService(IEnumerable<string> args)
+            : this()
         {
             this._args = args ?? new List<string>();
         }
 
-        private Regex _codePageRegex;
+        private IEnumerable<string> _args;
 
         /// <summary>
-        /// Gets the regular expression instance to filter codepage.
+        /// Gets or sets the list of arguments.
         /// </summary>
-        public Regex CodePageRegex
+        public IEnumerable<string> Args
         {
             get
             {
-                if (this._codePageRegex == null)
+                if (this._args == null || !this._args.Any())
                 {
-                    this._codePageRegex = new Regex(@"^\d+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    this._args = new List<string>();
                 }
-
-                return this._codePageRegex;
+                return this._args;
             }
+            set { this._args = value; }
         }
 
         /// <summary>
@@ -120,17 +122,17 @@ namespace Aliencube.TextEncodingConverter.Services
             switch (conversionType)
             {
                 case ConversionType.Directory:
-                    param.Directories = new List<string>()
-                                        {
-                                            source.Replace("/i:", "").Replace("\"", "")
-                                        };
+                    param.Directories = source.Replace("/i:", "")
+                                              .Replace("\"", "")
+                                              .Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                                              .ToList();
                     break;
 
                 case ConversionType.File:
-                    param.Files = new List<string>()
-                                  {
-                                      source.Replace("/i:", "").Replace("\"", "")
-                                  };
+                    param.Files = source.Replace("/i:", "")
+                                        .Replace("\"", "")
+                                        .Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                                        .ToList();
                     break;
 
                 default:
@@ -199,7 +201,7 @@ namespace Aliencube.TextEncodingConverter.Services
             encoding = encoding.Replace("/ie:", "");
 
             var ei = new EncodingInfoDataContainer();
-            if (this.CodePageRegex.IsMatch(encoding))
+            if (this._codePageRegex.IsMatch(encoding))
             {
                 ei.CodePage = Int32.Parse(encoding);
             }
@@ -226,7 +228,7 @@ namespace Aliencube.TextEncodingConverter.Services
             encoding = encoding.Replace("/oe:", "");
 
             var ei = new EncodingInfoDataContainer();
-            if (this.CodePageRegex.IsMatch(encoding))
+            if (this._codePageRegex.IsMatch(encoding))
             {
                 ei.CodePage = Int32.Parse(encoding);
             }

@@ -1,15 +1,18 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Aliencube.TextEncodingConverter.DataContainers;
+﻿using Aliencube.TextEncodingConverter.DataContainers;
+using System;
+using System.Collections.Generic;
 
 namespace Aliencube.TextEncodingConverter.Services.Interfaces
 {
+    /// <summary>
+    /// This provides interfaces to the <c>ParameterService</c> class.
+    /// </summary>
     public interface IParameterService : IDisposable
     {
         /// <summary>
-        /// Gets the regular expression instance to filter codepage.
+        /// Gets or sets the list of arguments.
         /// </summary>
-        Regex CodePageRegex { get; }
+        IEnumerable<string> Args { get; set; }
 
         /// <summary>
         /// Validates the parameter inputs.

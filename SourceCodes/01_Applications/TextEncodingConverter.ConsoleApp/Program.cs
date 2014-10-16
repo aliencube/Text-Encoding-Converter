@@ -23,6 +23,9 @@ namespace Aliencube.TextEncodingConverter.ConsoleApp
             Execute();
         }
 
+        /// <summary>
+        /// Executes the application.
+        /// </summary>
         private static void Execute()
         {
             Splash();
@@ -33,7 +36,7 @@ namespace Aliencube.TextEncodingConverter.ConsoleApp
 
                 try
                 {
-                    service.Convert();
+                    service.Convert(true);
                 }
                 catch (Exception ex)
                 {
@@ -44,6 +47,9 @@ namespace Aliencube.TextEncodingConverter.ConsoleApp
             }
         }
 
+        /// <summary>
+        /// Displays the splash message.
+        /// </summary>
         private static void Splash()
         {
             var assembly = Assembly.GetExecutingAssembly();

@@ -8,6 +8,9 @@ using System.Runtime.CompilerServices;
 
 namespace Aliencube.TextEncodingConverter.ViewModels
 {
+    /// <summary>
+    /// This represents the view model entity for <c>MainWindow</c>.
+    /// </summary>
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         #region Constructors
@@ -57,7 +60,7 @@ namespace Aliencube.TextEncodingConverter.ViewModels
                 {
                     var encodings = this._converter
                                         .Encodings
-                                        .Select(p => String.Format("{0} - {1} - {2}", p.Name, p.DisplayName, p.CodePage));
+                                        .Select(p => String.Format("{0} | {1} | {2}", p.Name, p.DisplayName, p.CodePage));
 
                     this._encodings = new ObservableCollection<string>(encodings);
                 }

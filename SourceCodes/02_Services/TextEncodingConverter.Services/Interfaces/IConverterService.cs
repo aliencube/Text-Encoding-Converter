@@ -1,23 +1,26 @@
+using Aliencube.TextEncodingConverter.DataContainers;
 using System;
 using System.Collections.Generic;
-using Aliencube.TextEncodingConverter.DataContainers;
 
 namespace Aliencube.TextEncodingConverter.Services.Interfaces
 {
+    /// <summary>
+    /// This provides interface to the <c>ConverterService</c> class.
+    /// </summary>
     public interface IConverterService : IDisposable
     {
         /// <summary>
         /// Gets the list of encoding information instances.
         /// </summary>
-        IList<EncodingInfoDataContainer> Encodings { get; }
+        IEnumerable<EncodingInfoDataContainer> Encodings { get; }
 
         /// <summary>
-        /// Gets or sets the input parameters.
+        /// Gets the input parameters.
         /// </summary>
         ParameterInfoDataContainer Input { get; }
 
         /// <summary>
-        /// Gets or sets the output parameters.
+        /// Gets the output parameters.
         /// </summary>
         ParameterInfoDataContainer Output { get; }
 
@@ -36,27 +39,25 @@ namespace Aliencube.TextEncodingConverter.Services.Interfaces
         string GetQualifiedPath(string path);
 
         /// <summary>
+        /// Performs the conversion from one encoding to another.
+        /// </summary>
+        /// <param name="args">List of arguments.</param>
+        /// <param name="displayUsage">Value that specifies whether to display the usage instruction or not.</param>
+        /// <returns>Returns <c>True</c>, if conversion is successful; otherwise returns <c>False</c>.</returns>
+        bool Convert(IEnumerable<string> args, bool displayUsage = true);
+
+        /// <summary>
         /// Perform the conversion from one encoding to another.
         /// </summary>
-        void Convert();
+        /// <param name="displayUsage">Value that specifies whether to display the usage instruction or not.</param>
+        /// <returns>Returns <c>True</c>, if conversion is successful; otherwise returns <c>False</c>.</returns>
+        bool Convert(bool displayUsage = true);
 
         /// <summary>
-        /// Displays the usage screen.
+        /// Performs the file backup.
         /// </summary>
-        void DisplayUsage();
-
-        /// <summary>
-        /// Converts files in a given directory.
-        /// </summary>
-        /// <param name="inputDirectory">Input directory.</param>
-        /// <param name="outputDirectory">Output directory.</param>
-        void ConvertFilesInDirectory(string inputDirectory, string outputDirectory);
-
-        /// <summary>
-        /// Convers a file.
-        /// </summary>
-        /// <param name="inputFile">Input file path.</param>
-        /// <param name="outputDirectory">Output directory.</param>
-        void ConvertFile(string inputFile, string outputDirectory);
+        /// <param name="files">List of files.</param>
+        /// <returns>Returns <c>True</c>, if the backup is successful; otherwise returns <c>False</c>.</returns>
+        bool Backup(IEnumerable<string> files);
     }
 }

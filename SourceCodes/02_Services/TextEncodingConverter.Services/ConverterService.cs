@@ -48,12 +48,12 @@ namespace Aliencube.TextEncodingConverter.Services
             this._parameterService = parameterService;
         }
 
-        private IList<EncodingInfoDataContainer> _encodings;
+        private IEnumerable<EncodingInfoDataContainer> _encodings;
 
         /// <summary>
         /// Gets the list of encoding information instances.
         /// </summary>
-        public IList<EncodingInfoDataContainer> Encodings
+        public IEnumerable<EncodingInfoDataContainer> Encodings
         {
             get
             {
@@ -66,7 +66,7 @@ namespace Aliencube.TextEncodingConverter.Services
                                                                Name = p.Name,
                                                                DisplayName = p.DisplayName
                                                            })
-                                              .ToList();
+                                              .OrderBy(p => p.Name);
                 }
                 return this._encodings;
             }
@@ -75,7 +75,7 @@ namespace Aliencube.TextEncodingConverter.Services
         private ParameterInfoDataContainer _input;
 
         /// <summary>
-        /// Gets or sets the input parameters.
+        /// Gets the input parameters.
         /// </summary>
         public ParameterInfoDataContainer Input
         {
@@ -93,7 +93,7 @@ namespace Aliencube.TextEncodingConverter.Services
         private ParameterInfoDataContainer _output;
 
         /// <summary>
-        /// Gets or sets the output parameters.
+        /// Gets the output parameters.
         /// </summary>
         public ParameterInfoDataContainer Output
         {
@@ -153,31 +153,87 @@ namespace Aliencube.TextEncodingConverter.Services
         }
 
         /// <summary>
-        /// Perform the conversion from one encoding to another.
+        /// Performs the conversion from one encoding to another.
         /// </summary>
-        public void Convert()
+        /// <param name="args">List of arguments.</param>
+        /// <param name="displayUsage">Value that specifies whether to display the usage instruction or not.</param>
+        /// <returns>Returns <c>True</c>, if conversion is successful; otherwise returns <c>False</c>.</returns>
+        public bool Convert(IEnumerable<string> args, bool displayUsage = true)
         {
+            this._parameterService.Args = args ?? new List<string>();
+            return this.Convert(displayUsage);
+        }
+
+        /// <summary>
+        /// Performs the conversion from one encoding to another.
+        /// </summary>
+        /// <param name="displayUsage">Value that specifies whether to display the usage instruction or not.</param>
+        /// <returns>Returns <c>True</c>, if conversion is successful; otherwise returns <c>False</c>.</returns>
+        public bool Convert(bool displayUsage = true)
+        {
+            var result = false;
             if (!this._parameterService.Validate())
             {
-                this.DisplayUsage();
-                return;
+                if (displayUsage)
+                {
+                    this.DisplayUsage();
+                }
+
+                return result;
             }
 
-            if (this.Input.Directories != null && this.Input.Directories.Any())
+            try
             {
-                Parallel.ForEach(this.Input.Directories, p => this.ConvertFilesInDirectory(p, this.Output.Directories.First()));
+                if (this.Input.Directories != null && this.Input.Directories.Any())
+                {
+                    Parallel.ForEach(this.Input.Directories, p => this.ConvertFilesInDirectory(p, this.Output.Directories.First()));
+                }
+
+                if (this.Input.Files != null && this.Input.Files.Any())
+                {
+                    Parallel.ForEach(this.Input.Files, p => this.ConvertFile(p, this.Output.Directories.First()));
+                }
+
+                result = true;
+            }
+            catch
+            {
+                result = false;
             }
 
-            if (this.Input.Files != null && this.Input.Files.Any())
+            return result;
+        }
+
+        /// <summary>
+        /// Performs the file backup.
+        /// </summary>
+        /// <param name="files">List of files.</param>
+        /// <returns>Returns <c>True</c>, if the backup is successful; otherwise returns <c>False</c>.</returns>
+        public bool Backup(IEnumerable<string> files)
+        {
+            if (!Directory.Exists("Backup"))
             {
-                Parallel.ForEach(this.Input.Files, p => this.ConvertFile(p, this.Output.Directories.First()));
+                Directory.CreateDirectory("Backup");
             }
+
+            bool result;
+            try
+            {
+                Parallel.ForEach(files, p => File.Copy(p, "Backup\\" + (new FileInfo(p)).Name));
+
+                result = true;
+            }
+            catch
+            {
+                result = false;
+            }
+            return result;
         }
 
         /// <summary>
         /// Displays the usage screen.
         /// </summary>
-        public void DisplayUsage()
+        private void DisplayUsage()
         {
             Console.WriteLine("Usage:");
             Console.WriteLine("    Aliencube.TextEncodingConverter.exe /d|/f /ie:WWW /oe:XXX /i:YYY /o:ZZZ");
@@ -196,7 +252,7 @@ namespace Aliencube.TextEncodingConverter.Services
         /// </summary>
         /// <param name="inputDirectory">Input directory.</param>
         /// <param name="outputDirectory">Output directory.</param>
-        public void ConvertFilesInDirectory(string inputDirectory, string outputDirectory)
+        private void ConvertFilesInDirectory(string inputDirectory, string outputDirectory)
         {
             var directory = this.GetQualifiedPath(inputDirectory);
             var files = Directory.GetFiles(directory);
@@ -211,7 +267,7 @@ namespace Aliencube.TextEncodingConverter.Services
         /// </summary>
         /// <param name="inputFile">Input file path.</param>
         /// <param name="outputDirectory">Output directory.</param>
-        public void ConvertFile(string inputFile, string outputDirectory)
+        private void ConvertFile(string inputFile, string outputDirectory)
         {
             if (!this.IsValidFile(inputFile))
             {

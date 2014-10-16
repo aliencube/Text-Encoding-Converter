@@ -20,28 +20,38 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                
-                <StackPanel Grid.Column="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="0" Grid.Row="0">
                     <Label Content="Input Encoding" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Grid.Row="0">
+                    <Label Content="Output Encoding" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Grid.Row="1">
                     <ComboBox x:Name="InputEncoding"
                               ItemsSource="{Binding Encodings}"
                               SelectedValue="{Binding InputEncoding}"
-                              />
+                              Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualHeight}" />
                 </StackPanel>
-                
-                <StackPanel Grid.Column="1">
-                    <Label Content="Output Encoding" />
+
+                <StackPanel Grid.Column="1" Grid.Row="1">
                     <ComboBox x:Name="OutputEncoding"
                               ItemsSource="{Binding Encodings}"
                               SelectedValue="{Binding OutputEncoding}"
-                              />
+                              Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualHeight}" />
                 </StackPanel>
-                
-                <StackPanel Grid.Column="2">
+
+                <StackPanel Grid.Column="2" Grid.Row="0" Grid.RowSpan="2">
                     <Button x:Name="Convert" Content="Convert"
                             Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualHeight}"
-                            Click="Convert_Click"
-                            />
+                            Click="Convert_Click" />
                 </StackPanel>
             </Grid>
         </Border>
@@ -61,8 +71,7 @@
                 <StackPanel Grid.Column="0" Grid.Row="0">
                     <Button x:Name="Browse" Content="Browse"
                             Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualHeight}"
-                            Click="Browse_Click"
-                            />
+                            Click="Browse_Click" />
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center">
@@ -70,15 +79,13 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="1">
-                    <ListView x:Name="Filenames"
-                              Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualHeight}"
-                              />
+                    <ListView x:Name="Filenames" BorderThickness="0"
+                              Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualHeight}" />
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Grid.Row="1">
                     <TextBlock x:Name="ConvertedNames"
-                               Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualHeight}"
-                               />
+                               Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualHeight}" />
                 </StackPanel>
             </Grid>
         </Border>
