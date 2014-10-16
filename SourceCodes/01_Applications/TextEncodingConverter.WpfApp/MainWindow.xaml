@@ -23,12 +23,18 @@
                 
                 <StackPanel Grid.Column="0">
                     <Label Content="Input Encoding" />
-                    <ComboBox x:Name="InputEncoding" />
+                    <ComboBox x:Name="InputEncoding"
+                              ItemsSource="{Binding Encodings}"
+                              SelectedValue="{Binding InputEncoding}"
+                              />
                 </StackPanel>
                 
                 <StackPanel Grid.Column="1">
                     <Label Content="Output Encoding" />
-                    <ComboBox x:Name="OutputEncoding" />
+                    <ComboBox x:Name="OutputEncoding"
+                              ItemsSource="{Binding Encodings}"
+                              SelectedValue="{Binding OutputEncoding}"
+                              />
                 </StackPanel>
                 
                 <StackPanel Grid.Column="2">
@@ -53,8 +59,9 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Column="0" Grid.Row="0">
-                    <Button x:Name="Browse" Content="Browse" Click="Browse_Click"
+                    <Button x:Name="Browse" Content="Browse"
                             Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualHeight}"
+                            Click="Browse_Click"
                             />
                 </StackPanel>
 

@@ -1,10 +1,9 @@
-﻿using Aliencube.TextEncodingConverter.Services;
+﻿using Aliencube.TextEncodingConverter.Services.Interfaces;
+using Aliencube.TextEncodingConverter.ViewModels;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Aliencube.TextEncodingConverter.WpfApp
 {
@@ -13,37 +12,26 @@ namespace Aliencube.TextEncodingConverter.WpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly ParameterService _parameterService;
-        private readonly ConverterService _converterService;
+        private readonly IConverterService _converter;
+        private readonly MainWindowViewModel _vm;
 
-        public MainWindow()
+        public MainWindow(IConverterService conveter, MainWindowViewModel vm)
         {
+            if (conveter == null)
+            {
+                throw new ArgumentNullException("conveter");
+            }
+            this._converter = conveter;
+
+            if (vm == null)
+            {
+                throw new ArgumentNullException("vm");
+            }
+            this._vm = vm;
+
             InitializeComponent();
 
-            this._parameterService = new ParameterService();
-            this._converterService = new ConverterService(this._parameterService);
-
-            this.Loaded += MainWindow_Loaded;
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            var items = this._converterService
-                            .Encodings
-                            .Select(p => new ComboBoxItem()
-                                         {
-                                             Content = String.Format("{0}:::{1}:::{2}", p.CodePage, p.Name, p.DisplayName)
-                                         })
-                            .ToList();
-            var inputs = new List<ComboBoxItem>();
-            inputs.AddRange(items);
-            var outputs = new List<ComboBoxItem>();
-            outputs.AddRange(items);
-
-            this.InputEncoding.ItemsSource = inputs;
-            this.InputEncoding.Items.Cast<ComboBoxItem>().Single(p => ((string) p.Content).StartsWith("949")).IsSelected = true;
-            this.OutputEncoding.ItemsSource = outputs;
-            this.OutputEncoding.Items.Cast<ComboBoxItem>().Single(p => ((string)p.Content).StartsWith("65001")).IsSelected = true;
+            this.DataContext = this._vm;
         }
 
         private void Browse_Click(object sender, RoutedEventArgs e)
@@ -54,7 +42,7 @@ namespace Aliencube.TextEncodingConverter.WpfApp
                                     Multiselect = true
                                 })
             {
-                dialog.Filters.Add(new CommonFileDialogFilter("Text documents", "*.txt;*.srt;*.smi"));
+                dialog.Filters.Add(new CommonFileDialogFilter("Text documents", "*.smi;*.srt;*.txt"));
                 dialog.Filters.Add(new CommonFileDialogFilter("All documents", "*.*"));
 
                 var result = dialog.ShowDialog();
