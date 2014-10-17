@@ -58,6 +58,7 @@
       <HintPath>..\..\..\Libraries\Windows-API-Code-Pack-1.1\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -133,6 +134,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\01_Configs\TextEncodingConverter.Configs\TextEncodingConverter.Configs.csproj">
+      <Project>{4b06b8a0-af4b-4fcd-8714-1e7a29e268f6}</Project>
+      <Name>TextEncodingConverter.Configs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\03_Services\TextEncodingConverter.Services\TextEncodingConverter.Services.csproj">
       <Project>{504d271c-c7ba-4a67-be78-85814d5ed333}</Project>
       <Name>TextEncodingConverter.Services</Name>
