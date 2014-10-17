@@ -43,6 +43,10 @@
     <Compile Include="..\..\..\Documents\Properties\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ConverterElement.cs" />
+    <Compile Include="Interfaces\ITextEncodingConverterSettings.cs" />
+    <Compile Include="TextEncodingConverterSettings.cs" />
+    <Compile Include="EncodingElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
