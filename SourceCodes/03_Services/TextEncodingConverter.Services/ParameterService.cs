@@ -1,4 +1,5 @@
-﻿using Aliencube.TextEncodingConverter.DataContainers;
+﻿using Aliencube.TextEncodingConverter.Configs.Interfaces;
+using Aliencube.TextEncodingConverter.DataContainers;
 using Aliencube.TextEncodingConverter.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,14 @@ namespace Aliencube.TextEncodingConverter.Services
         /// <summary>
         /// Initialises a new instance of the ParameterService class.
         /// </summary>
-        public ParameterService()
+        /// <param name="settings"><c>TextEncodingConverterSettings</c> instance.</param>
+        public ParameterService(ITextEncodingConverterSettings settings)
         {
+            if (settings == null)
+            {
+                throw new ArgumentNullException("settings");
+            }
+
             this._df = new Regex("^/[df]$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             this._ie = new Regex("^/ie\\:", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             this._oe = new Regex("^/oe\\:", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -37,8 +44,9 @@ namespace Aliencube.TextEncodingConverter.Services
         /// Initialises a new instance of the ParameterService class.
         /// </summary>
         /// <param name="args">Arguments taken from the application.</param>
-        public ParameterService(IEnumerable<string> args)
-            : this()
+        /// <param name="settings"><c>TextEncodingConverterSettings</c> instance.</param>
+        public ParameterService(IEnumerable<string> args, ITextEncodingConverterSettings settings)
+            : this(settings)
         {
             this._args = args ?? new List<string>();
         }
