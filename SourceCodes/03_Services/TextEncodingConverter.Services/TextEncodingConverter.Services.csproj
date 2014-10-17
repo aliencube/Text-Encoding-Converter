@@ -51,7 +51,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\03_Models\TextEncodingConverter.DataContainers\TextEncodingConverter.DataContainers.csproj">
+    <ProjectReference Include="..\..\01_Configs\TextEncodingConverter.Configs\TextEncodingConverter.Configs.csproj">
+      <Project>{4b06b8a0-af4b-4fcd-8714-1e7a29e268f6}</Project>
+      <Name>TextEncodingConverter.Configs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\04_Models\TextEncodingConverter.DataContainers\TextEncodingConverter.DataContainers.csproj">
       <Project>{d7d65ea6-77ff-4204-b7e9-0566b508a43b}</Project>
       <Name>TextEncodingConverter.DataContainers</Name>
     </ProjectReference>
