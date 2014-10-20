@@ -1,8 +1,8 @@
-﻿using Aliencube.TextEncodingConverter.DataContainers;
+﻿using Aliencube.TextEncodingConverter.Configs.Interfaces;
+using Aliencube.TextEncodingConverter.DataContainers;
 using Aliencube.TextEncodingConverter.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,11 +16,14 @@ namespace Aliencube.TextEncodingConverter.Services
     /// </summary>
     public class ConverterService : IConverterService
     {
+        private readonly ITextEncodingConverterSettings _settings;
         private readonly IParameterService _parameterService;
 
         /// <summary>
         /// Initialises a new instance of the ConverterService class.
         /// </summary>
+        /// <param name="settings"><c>TextEncodingConverterSettings</c> instance.</param>
+        /// <param name="parameterService"><c>ParameterService</c> instance.</param>
         /// <remarks>
         /// When initialised, default values of input and output are to be:
         /// <list type="bullet">
@@ -38,13 +41,18 @@ namespace Aliencube.TextEncodingConverter.Services
         ///     </item>
         /// </list>
         /// </remarks>
-        public ConverterService(IParameterService parameterService)
+        public ConverterService(ITextEncodingConverterSettings settings, IParameterService parameterService)
         {
+            if (settings == null)
+            {
+                throw new ArgumentNullException("settings");
+            }
+            this._settings = settings;
+
             if (parameterService == null)
             {
                 throw new ArgumentNullException("parameterService");
             }
-
             this._parameterService = parameterService;
         }
 
@@ -121,7 +129,7 @@ namespace Aliencube.TextEncodingConverter.Services
             }
 
             var extension = inputFile.Split(new string[] { "." }, StringSplitOptions.RemoveEmptyEntries).Last().ToLower();
-            var extensions = ConfigurationManager.AppSettings["Extensions"].Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var extensions = this._settings.Converter.Extensions.Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
             return extensions.Select(p => p.ToLower()).Contains(extension);
         }
 
@@ -211,15 +219,25 @@ namespace Aliencube.TextEncodingConverter.Services
         /// <returns>Returns <c>True</c>, if the backup is successful; otherwise returns <c>False</c>.</returns>
         public bool Backup(IEnumerable<string> files)
         {
-            if (!Directory.Exists("Backup"))
+            var backup = this._settings.Converter.BackupPath;
+            if (!Directory.Exists(backup))
             {
-                Directory.CreateDirectory("Backup");
+                Directory.CreateDirectory(backup);
             }
 
             bool result;
             try
             {
-                Parallel.ForEach(files, p => File.Copy(p, "Backup\\" + (new FileInfo(p)).Name));
+                Parallel.ForEach(files, p =>
+                                        {
+                                            var fi = new FileInfo(p);
+                                            var file = String.Format("{0}\\{1}", backup, fi.Name);
+                                            if (File.Exists(file))
+                                            {
+                                                File.Delete(file);
+                                            }
+                                            File.Copy(p, file);
+                                        });
 
                 result = true;
             }

@@ -1,4 +1,7 @@
-﻿using Aliencube.TextEncodingConverter.Services;
+﻿using System.Collections.Generic;
+using Aliencube.TextEncodingConverter.Configs;
+using Aliencube.TextEncodingConverter.Configs.Interfaces;
+using Aliencube.TextEncodingConverter.Services;
 using Aliencube.TextEncodingConverter.Services.Interfaces;
 using Autofac;
 using System;
@@ -15,18 +18,19 @@ namespace Aliencube.TextEncodingConverter.ConsoleApp
         {
             var builder = new ContainerBuilder();
 
-            builder.Register(p => new ParameterService(args)).As<IParameterService>().PropertiesAutowired();
+            builder.Register(p => TextEncodingConverterSettings.CreateInstance()).As<ITextEncodingConverterSettings>().PropertiesAutowired();
+            builder.RegisterType<ParameterService>().As<IParameterService>().PropertiesAutowired();
             builder.RegisterType<ConverterService>().As<IConverterService>().PropertiesAutowired();
 
             _container = builder.Build();
 
-            Execute();
+            Execute(args);
         }
 
         /// <summary>
         /// Executes the application.
         /// </summary>
-        private static void Execute()
+        private static void Execute(IEnumerable<string> args)
         {
             Splash();
 
@@ -36,7 +40,7 @@ namespace Aliencube.TextEncodingConverter.ConsoleApp
 
                 try
                 {
-                    service.Convert(true);
+                    service.Convert(args, true);
                 }
                 catch (Exception ex)
                 {

@@ -1,3 +1,5 @@
+using Aliencube.TextEncodingConverter.Configs;
+using Aliencube.TextEncodingConverter.Configs.Interfaces;
 using Aliencube.TextEncodingConverter.Services;
 using Aliencube.TextEncodingConverter.Services.Interfaces;
 using FluentAssertions;
@@ -11,18 +13,28 @@ namespace Aliencube.TextEncodingConverter.Tests
     {
         #region SetUp / TearDown
 
-        private IParameterService _parameterService;
+        private ITextEncodingConverterSettings _settings;
+        private IParameterService _service;
 
         [SetUp]
         public void Init()
         {
+            this._settings = TextEncodingConverterSettings.CreateInstance();
+            this._service = new ParameterService(this._settings);
         }
 
         [TearDown]
         public void Dispose()
         {
-            if (this._parameterService != null)
-            this._parameterService.Dispose();
+            if (this._service != null)
+            {
+                this._service.Dispose();
+            }
+
+            if (this._settings != null)
+            {
+                this._settings.Dispose();
+            }
         }
 
         #endregion SetUp / TearDown
@@ -38,8 +50,8 @@ namespace Aliencube.TextEncodingConverter.Tests
         [TestCase(false, "/d", "/ie:949", "/oe:utf-8", "/i:test")]
         public void GetValidated_GivenArgs_ReturnValidated(bool expected, params string[] args)
         {
-            this._parameterService = new ParameterService(args);
-            var validated = this._parameterService.Validate();
+            this._service.Args = args;
+            var validated = this._service.Validate();
 
             validated.Should().Be(expected);
         }
@@ -48,8 +60,8 @@ namespace Aliencube.TextEncodingConverter.Tests
         [TestCase("/d", "/ie:949", "/oe:utf-8", "/i:test", "/o:output")]
         public void GetInputParameter_GivenArgs_ReturnInputParameter(params string[] args)
         {
-            this._parameterService = new ParameterService(args);
-            var param = this._parameterService.GetInput();
+            this._service.Args = args;
+            var param = this._service.GetInput();
 
             Assert.AreEqual(param.EncodingInfo.CodePage.ToString(), args.Single(p => p.StartsWith("/ie:")).Replace("/ie:", ""));
             Assert.AreEqual(param.Directories.First(), args.Single(p => p.StartsWith("/i:")).Replace("/i:", ""));
@@ -59,8 +71,8 @@ namespace Aliencube.TextEncodingConverter.Tests
         [TestCase("/d", "/ie:949", "/oe:utf-8", "/i:test", "/o:output")]
         public void GetOutputParameter_GivenArgs_ReturnOutputParameter(params string[] args)
         {
-            this._parameterService = new ParameterService(args);
-            var param = this._parameterService.GetOutput();
+            this._service.Args = args;
+            var param = this._service.GetOutput();
 
             Assert.AreEqual(param.EncodingInfo.Name, args.Single(p => p.StartsWith("/oe:")).Replace("/oe:", ""));
             Assert.AreEqual(param.Directories.First(), args.Single(p => p.StartsWith("/o:")).Replace("/o:", ""));
@@ -70,8 +82,8 @@ namespace Aliencube.TextEncodingConverter.Tests
         [TestCase("/d", "/ie:949", "/oe:utf-8", "/i:test", "/o:output")]
         public void GetConversionType_GivenArgs_ReturnConversionType(params string[] args)
         {
-            this._parameterService = new ParameterService(args);
-            var conversionType = this._parameterService.GetConversioinType();
+            this._service.Args = args;
+            var conversionType = this._service.GetConversioinType();
 
             Assert.AreEqual(conversionType, ConversionType.Directory);
         }

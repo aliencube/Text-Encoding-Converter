@@ -1,4 +1,6 @@
-﻿using Aliencube.TextEncodingConverter.Services;
+﻿using Aliencube.TextEncodingConverter.Configs;
+using Aliencube.TextEncodingConverter.Configs.Interfaces;
+using Aliencube.TextEncodingConverter.Services;
 using Aliencube.TextEncodingConverter.Services.Interfaces;
 using Aliencube.TextEncodingConverter.ViewModels;
 using Autofac;
@@ -22,6 +24,7 @@ namespace Aliencube.TextEncodingConverter.WpfApp
         {
             var builder = new ContainerBuilder();
 
+            builder.Register(p => TextEncodingConverterSettings.CreateInstance()).As<ITextEncodingConverterSettings>().InstancePerLifetimeScope();
             builder.RegisterType<ParameterService>().As<IParameterService>().InstancePerLifetimeScope();
             builder.RegisterType<ConverterService>().As<IConverterService>().InstancePerLifetimeScope();
             builder.RegisterType<MainWindowViewModel>().InstancePerLifetimeScope();
@@ -31,7 +34,8 @@ namespace Aliencube.TextEncodingConverter.WpfApp
             var csl = new AutofacServiceLocator(container);
             ServiceLocator.SetLocatorProvider(() => csl);
 
-            Current.MainWindow = new MainWindow(ServiceLocator.Current.GetInstance<IConverterService>(),
+            Current.MainWindow = new MainWindow(ServiceLocator.Current.GetInstance<ITextEncodingConverterSettings>(),
+                                                ServiceLocator.Current.GetInstance<IConverterService>(),
                                                 ServiceLocator.Current.GetInstance<MainWindowViewModel>());
             Current.MainWindow.Show();
         }

@@ -1,6 +1,7 @@
+using Aliencube.TextEncodingConverter.Configs;
+using Aliencube.TextEncodingConverter.Configs.Interfaces;
 using Aliencube.TextEncodingConverter.Services;
 using Aliencube.TextEncodingConverter.Services.Interfaces;
-using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.IO;
@@ -14,21 +15,35 @@ namespace Aliencube.TextEncodingConverter.Tests
     {
         #region SetUp / TearDown
 
+        private ITextEncodingConverterSettings _settings;
         private IParameterService _parameterService;
         private IConverterService _converterService;
 
         [SetUp]
         public void Init()
         {
-            this._parameterService = Substitute.For<IParameterService>();
-            this._converterService = new ConverterService(this._parameterService);
+            this._settings = TextEncodingConverterSettings.CreateInstance();
+            this._parameterService = new ParameterService(this._settings);
+            this._converterService = new ConverterService(this._settings, this._parameterService);
         }
 
         [TearDown]
         public void Dispose()
         {
-            this._converterService.Dispose();
-            this._parameterService.Dispose();
+            if (this._converterService != null)
+            {
+                this._converterService.Dispose();
+            }
+
+            if (this._parameterService != null)
+            {
+                this._parameterService.Dispose();
+            }
+
+            if (this._settings != null)
+            {
+                this._settings.Dispose();
+            }
         }
 
         #endregion SetUp / TearDown

@@ -1,4 +1,5 @@
-﻿using Aliencube.TextEncodingConverter.Services.Interfaces;
+﻿using Aliencube.TextEncodingConverter.Configs.Interfaces;
+using Aliencube.TextEncodingConverter.Services.Interfaces;
 using Aliencube.TextEncodingConverter.ViewModels;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
@@ -14,16 +15,26 @@ namespace Aliencube.TextEncodingConverter.WpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly ITextEncodingConverterSettings _settings;
         private readonly IConverterService _converter;
         private readonly MainWindowViewModel _vm;
+
+        private static object _lock = new object();
 
         /// <summary>
         /// Initialises a new instance of the <c>MailWindow</c> class.
         /// </summary>
-        /// <param name="conveter"></param>
-        /// <param name="vm"></param>
-        public MainWindow(IConverterService conveter, MainWindowViewModel vm)
+        /// <param name="settings"><c>TextEncodingConverterSettings</c> instance.</param>
+        /// <param name="conveter"><c>ConverterService</c> instance.</param>
+        /// <param name="vm"><c>MainWindowViewModel</c> instance.</param>
+        public MainWindow(ITextEncodingConverterSettings settings, IConverterService conveter, MainWindowViewModel vm)
         {
+            if (settings == null)
+            {
+                throw new ArgumentNullException("settings");
+            }
+            this._settings = settings;
+
             if (conveter == null)
             {
                 throw new ArgumentNullException("conveter");
@@ -54,7 +65,12 @@ namespace Aliencube.TextEncodingConverter.WpfApp
                                     Multiselect = true
                                 })
             {
-                dialog.Filters.Add(new CommonFileDialogFilter("Text documents", "*.smi;*.srt;*.txt"));
+                var extensions = String.Join(";", this._settings
+                                                      .Converter
+                                                      .Extensions
+                                                      .Split(new string[] {",", " "}, StringSplitOptions.RemoveEmptyEntries)
+                                                      .Select(p => "*." + p));
+                dialog.Filters.Add(new CommonFileDialogFilter("Text documents", extensions));
                 dialog.Filters.Add(new CommonFileDialogFilter("All documents", "*.*"));
 
                 var result = dialog.ShowDialog();
@@ -75,6 +91,11 @@ namespace Aliencube.TextEncodingConverter.WpfApp
         /// <param name="e">Event instance.</param>
         private void Convert_Click(object sender, RoutedEventArgs e)
         {
+            if (!String.IsNullOrWhiteSpace(this.ConvertedNames.Text))
+            {
+                this.ConvertedNames.Text = String.Empty;
+            }
+
             if (this.AllowBackup.IsChecked.GetValueOrDefault())
             {
                 this._converter.Backup(this.Filenames.Items.Cast<string>());
@@ -82,9 +103,15 @@ namespace Aliencube.TextEncodingConverter.WpfApp
 
             var ie = ((string)this.InputEncoding.SelectedValue).Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries)[0].Trim();
             var oe = ((string)this.OutputEncoding.SelectedValue).Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries)[0].Trim();
-            var o = "Converted";
+            var o = this._settings.Converter.OutputPath;
 
-            Parallel.ForEach(this.Filenames.Items.Cast<string>(), i => this.ProcessConvert(ie, oe, i, o));
+            var results = new List<string>();
+            foreach (var i in this.Filenames.Items.Cast<string>())
+            {
+                results.Add(this.ProcessConvert(ie, oe, i, o));
+            }
+
+            this.ConvertedNames.Text = String.Join("\n", results);
         }
 
         /// <summary>
@@ -94,7 +121,7 @@ namespace Aliencube.TextEncodingConverter.WpfApp
         /// <param name="oe">Output encoding.</param>
         /// <param name="i">Input file.</param>
         /// <param name="o">Output directory.</param>
-        private void ProcessConvert(string ie, string oe, string i, string o)
+        private string ProcessConvert(string ie, string oe, string i, string o)
         {
             var args = new List<string>()
                        {
@@ -106,7 +133,7 @@ namespace Aliencube.TextEncodingConverter.WpfApp
                        };
 
             var result = this._converter.Convert(args, false);
-            this.ConvertedNames.Text += String.Format("{0} => {1}", i, (result ? "Converted" : "Failed"));
+            return result ? "Converted" : "Failed";
         }
     }
 }
