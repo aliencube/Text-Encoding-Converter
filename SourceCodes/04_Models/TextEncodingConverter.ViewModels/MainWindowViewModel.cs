@@ -1,4 +1,5 @@
-﻿using Aliencube.TextEncodingConverter.Services.Interfaces;
+﻿using Aliencube.TextEncodingConverter.DataContainers;
+using Aliencube.TextEncodingConverter.Services.Interfaces;
 using Aliencube.TextEncodingConverter.ViewModels.Properties;
 using System;
 using System.Collections.ObjectModel;
@@ -47,22 +48,21 @@ namespace Aliencube.TextEncodingConverter.ViewModels
 
         #region Properties
 
-        private ObservableCollection<string> _encodings;
+        private ObservableCollection<EncodingInfoDataContainer> _encodings;
 
         /// <summary>
         /// Gets or sets the list of encodings.
         /// </summary>
-        public ObservableCollection<string> Encodings
+        public ObservableCollection<EncodingInfoDataContainer> Encodings
         {
             get
             {
                 if (this._encodings == null || !this._encodings.Any())
                 {
                     var encodings = this._converter
-                                        .Encodings
-                                        .Select(p => String.Format("{0} | {1} | {2}", p.Name, p.DisplayName, p.CodePage));
+                                        .Encodings;
 
-                    this._encodings = new ObservableCollection<string>(encodings);
+                    this._encodings = new ObservableCollection<EncodingInfoDataContainer>(encodings);
                 }
                 return this._encodings;
             }
@@ -73,20 +73,16 @@ namespace Aliencube.TextEncodingConverter.ViewModels
             }
         }
 
-        private string _inputEncoding;
+		private EncodingInfoDataContainer _inputEncoding;
 
         /// <summary>
         /// Gets or sets the input encoding.
         /// </summary>
-        public string InputEncoding
+        public EncodingInfoDataContainer InputEncoding
         {
-            get
-            {
-                if (String.IsNullOrWhiteSpace(this._inputEncoding))
-                {
-                    this._inputEncoding = this.Encodings.Single(p => p.StartsWith("ks_c_5601-1987"));
-                }
-                return this._inputEncoding;
+            get {
+                return _inputEncoding ??
+                       (_inputEncoding = Encodings.First(p => p.Name.StartsWith("ks_c_5601-1987")));
             }
             set
             {
@@ -95,20 +91,16 @@ namespace Aliencube.TextEncodingConverter.ViewModels
             }
         }
 
-        private string _outputEncoding;
+        private EncodingInfoDataContainer _outputEncoding;
 
         /// <summary>
         /// Gets or sets the output encoding.
         /// </summary>
-        public string OutputEncoding
+        public EncodingInfoDataContainer OutputEncoding
         {
             get
             {
-                if (String.IsNullOrWhiteSpace(this._outputEncoding))
-                {
-                    this._outputEncoding = this.Encodings.Single(p => p.StartsWith("utf-8"));
-                }
-                return this._outputEncoding;
+                return _outputEncoding ?? (_outputEncoding = Encodings.First(p => p.Name.StartsWith("utf-8")));
             }
             set
             {

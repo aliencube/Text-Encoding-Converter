@@ -1,4 +1,5 @@
 ﻿using Aliencube.TextEncodingConverter.Configs.Interfaces;
+using Aliencube.TextEncodingConverter.DataContainers;
 using Aliencube.TextEncodingConverter.Services.Interfaces;
 using Aliencube.TextEncodingConverter.ViewModels;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -100,8 +101,8 @@ namespace Aliencube.TextEncodingConverter.WpfApp
                 this._converter.Backup(this.Filenames.Items.Cast<string>());
             }
 
-            var ie = ((string)this.InputEncoding.SelectedValue).Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries)[0].Trim();
-            var oe = ((string)this.OutputEncoding.SelectedValue).Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries)[0].Trim();
+            var ie = ((EncodingInfoDataContainer)this.InputEncoding.SelectedValue).Name;
+            var oe = ((EncodingInfoDataContainer)this.OutputEncoding.SelectedValue).Name;
             var o = this._settings.Converter.OutputPath;
 
             var results = new List<string>();
