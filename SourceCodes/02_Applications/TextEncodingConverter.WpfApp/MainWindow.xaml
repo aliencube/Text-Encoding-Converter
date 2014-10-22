@@ -84,8 +84,8 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Grid.Row="1">
-                    <TextBlock x:Name="ConvertedNames"
-                               Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualHeight}" />
+                    <ListView x:Name="ConvertedNames" BorderThickness="0"
+                              Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualHeight}" />
                 </StackPanel>
             </Grid>
         </Border>

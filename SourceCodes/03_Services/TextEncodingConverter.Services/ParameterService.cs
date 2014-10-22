@@ -49,26 +49,13 @@ namespace Aliencube.TextEncodingConverter.Services
         public ParameterService(IEnumerable<string> args, ITextEncodingConverterSettings settings)
             : this(settings)
         {
-            this._args = args ?? new List<string>();
+            this.Args = args ?? new List<string>();
         }
-
-        private IEnumerable<string> _args;
 
         /// <summary>
         /// Gets or sets the list of arguments.
         /// </summary>
-        public IEnumerable<string> Args
-        {
-            get
-            {
-                if (this._args == null || !this._args.Any())
-                {
-                    this._args = new List<string>();
-                }
-                return this._args;
-            }
-            set { this._args = value; }
-        }
+        public IEnumerable<string> Args { get; set; }
 
         private IEnumerable<EncodingInfoDataContainer> _encodings;
 
@@ -100,35 +87,35 @@ namespace Aliencube.TextEncodingConverter.Services
         /// <returns>Returns <c>True</c>, if all parameters are valid; otherwise returns <c>False</c>.</returns>
         public bool Validate()
         {
-            if (this._args == null || !this._args.Any())
+            if (this.Args == null || !this.Args.Any())
             {
                 return false;
             }
 
-            var df = this._args.Any(p => this._df.IsMatch(p));
+            var df = this.Args.Any(p => this._df.IsMatch(p));
             if (!df)
             {
                 return false;
             }
 
-            var ie = this._args.Any(p => this._ie.IsMatch(p));
+            var ie = this.Args.Any(p => this._ie.IsMatch(p));
             if (!ie)
             {
                 return false;
             }
 
-            var oe = this._args.Any(p => this._oe.IsMatch(p));
+            var oe = this.Args.Any(p => this._oe.IsMatch(p));
             if (!oe)
             {
                 return false;
             }
 
-            var i = this._args.Any(p => this._i.IsMatch(p));
+            var i = this.Args.Any(p => this._i.IsMatch(p));
             if (!i)
             {
                 return false;
             }
-            var o = this._args.Any(p => this._o.IsMatch(p));
+            var o = this.Args.Any(p => this._o.IsMatch(p));
             if (!o)
             {
                 return false;
@@ -145,7 +132,7 @@ namespace Aliencube.TextEncodingConverter.Services
         {
             var param = new ParameterInfoDataContainer();
 
-            var source = this._args.FirstOrDefault(p => p.ToLower().StartsWith("/i:"));
+            var source = this.Args.FirstOrDefault(p => p.ToLower().StartsWith("/i:"));
             if (String.IsNullOrWhiteSpace(source))
             {
                 return param;
@@ -184,7 +171,7 @@ namespace Aliencube.TextEncodingConverter.Services
         {
             var param = new ParameterInfoDataContainer();
 
-            var source = this._args.FirstOrDefault(p => p.ToLower().StartsWith("/o:"));
+            var source = this.Args.FirstOrDefault(p => p.ToLower().StartsWith("/o:"));
             if (String.IsNullOrWhiteSpace(source))
             {
                 return param;
@@ -207,11 +194,11 @@ namespace Aliencube.TextEncodingConverter.Services
         {
             var conversionType = ConversionType.Unknown;
 
-            if (this._args.Any(p => p.ToLower() == "/d"))
+            if (this.Args.Any(p => p.ToLower() == "/d"))
             {
                 conversionType = ConversionType.Directory;
             }
-            else if (this._args.Any(p => p.ToLower() == "/f"))
+            else if (this.Args.Any(p => p.ToLower() == "/f"))
             {
                 conversionType = ConversionType.File;
             }
@@ -225,7 +212,7 @@ namespace Aliencube.TextEncodingConverter.Services
         /// <returns>Returns the input encoding information.</returns>
         public EncodingInfoDataContainer GetInputEncoding()
         {
-            var encoding = this._args.FirstOrDefault(p => p.ToLower().StartsWith("/ie:"));
+            var encoding = this.Args.FirstOrDefault(p => p.ToLower().StartsWith("/ie:"));
             if (String.IsNullOrWhiteSpace(encoding))
             {
                 return this.Encodings.Single(p => p.CodePage == 949);
@@ -244,7 +231,7 @@ namespace Aliencube.TextEncodingConverter.Services
         /// <returns>Returns the output encoding information.</returns>
         public EncodingInfoDataContainer GetOutputEncoding()
         {
-            var encoding = this._args.FirstOrDefault(p => p.ToLower().StartsWith("/oe:"));
+            var encoding = this.Args.FirstOrDefault(p => p.ToLower().StartsWith("/oe:"));
             if (String.IsNullOrWhiteSpace(encoding))
             {
                 return this.Encodings.Single(p => p.CodePage == 65001);

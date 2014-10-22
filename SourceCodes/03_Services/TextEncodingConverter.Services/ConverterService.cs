@@ -73,8 +73,6 @@ namespace Aliencube.TextEncodingConverter.Services
             }
         }
 
-        private ParameterInfoDataContainer _input;
-
         /// <summary>
         /// Gets the input parameters.
         /// </summary>
@@ -82,16 +80,10 @@ namespace Aliencube.TextEncodingConverter.Services
         {
             get
             {
-                if (this._input == null)
-                {
-                    this._input = this._parameterService.GetInput();
-                }
-
-                return this._input;
+                var input = this._parameterService.GetInput();
+                return input;
             }
         }
-
-        private ParameterInfoDataContainer _output;
 
         /// <summary>
         /// Gets the output parameters.
@@ -100,12 +92,8 @@ namespace Aliencube.TextEncodingConverter.Services
         {
             get
             {
-                if (this._output == null)
-                {
-                    this._output = this._parameterService.GetOutput();
-                }
-
-                return this._output;
+                var output = this._parameterService.GetOutput();
+                return output;
             }
         }
 
@@ -172,7 +160,6 @@ namespace Aliencube.TextEncodingConverter.Services
         /// <returns>Returns <c>True</c>, if conversion is successful; otherwise returns <c>False</c>.</returns>
         public bool Convert(bool displayUsage = true)
         {
-            var result = false;
             if (!this._parameterService.Validate())
             {
                 if (displayUsage)
@@ -180,29 +167,29 @@ namespace Aliencube.TextEncodingConverter.Services
                     this.DisplayUsage();
                 }
 
-                return result;
+                return false;
             }
 
-            try
+            if (this.Input.Directories != null && this.Input.Directories.Any())
             {
-                if (this.Input.Directories != null && this.Input.Directories.Any())
+                foreach (var directory in this.Input.Directories)
                 {
-                    Parallel.ForEach(this.Input.Directories, p => this.ConvertFilesInDirectory(p, this.Output.Directories.First()));
+                    this.ConvertFilesInDirectory(directory, this.Output.Directories.First());
                 }
-
-                if (this.Input.Files != null && this.Input.Files.Any())
-                {
-                    Parallel.ForEach(this.Input.Files, p => this.ConvertFile(p, this.Output.Directories.First()));
-                }
-
-                result = true;
             }
-            catch
+            else if (this.Input.Files != null && this.Input.Files.Any())
             {
-                result = false;
+                foreach (var file in this.Input.Files)
+                {
+                    this.ConvertFile(file, this.Output.Directories.First());
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("No directory or file selected");
             }
 
-            return result;
+            return true;
         }
 
         /// <summary>

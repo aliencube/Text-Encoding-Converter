@@ -5,7 +5,6 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Aliencube.TextEncodingConverter.WpfApp
@@ -68,7 +67,7 @@ namespace Aliencube.TextEncodingConverter.WpfApp
                 var extensions = String.Join(";", this._settings
                                                       .Converter
                                                       .Extensions
-                                                      .Split(new string[] {",", " "}, StringSplitOptions.RemoveEmptyEntries)
+                                                      .Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries)
                                                       .Select(p => "*." + p));
                 dialog.Filters.Add(new CommonFileDialogFilter("Text documents", extensions));
                 dialog.Filters.Add(new CommonFileDialogFilter("All documents", "*.*"));
@@ -91,9 +90,9 @@ namespace Aliencube.TextEncodingConverter.WpfApp
         /// <param name="e">Event instance.</param>
         private void Convert_Click(object sender, RoutedEventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(this.ConvertedNames.Text))
+            if (this.ConvertedNames.HasItems)
             {
-                this.ConvertedNames.Text = String.Empty;
+                this.ConvertedNames.Items.Clear();
             }
 
             if (this.AllowBackup.IsChecked.GetValueOrDefault())
@@ -111,7 +110,7 @@ namespace Aliencube.TextEncodingConverter.WpfApp
                 results.Add(this.ProcessConvert(ie, oe, i, o));
             }
 
-            this.ConvertedNames.Text = String.Join("\n", results);
+            this.ConvertedNames.ItemsSource = results;
         }
 
         /// <summary>
@@ -132,8 +131,9 @@ namespace Aliencube.TextEncodingConverter.WpfApp
                            String.Format("/o:{0}", o)
                        };
 
-            var result = this._converter.Convert(args, false);
-            return result ? "Converted" : "Failed";
+            var converted = this._converter.Convert(args, false);
+            var result = String.Format("=> {0}", (converted ? "Converted" : "Failed"));
+            return result;
         }
     }
 }
