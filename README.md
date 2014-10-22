@@ -3,14 +3,36 @@
 **Text Encoding Converter** converts text files encoding from one to another, mainly `ks_c_5601-1987` to `UTF-8`.
 
 
-# Getting Started #
+## Getting Started ##
 
-## Installation ##
+### Installation ###
 
-For the console application, there is no need to install. Instead, [download the zip file](http://github.aliencube.org/Text-Encoding-Converter/downloads/TextEncodingConverter-1.0.0.0.zip) and unzip to your preferred location.
+There is no need for installation. Instead, download one of the following options:
+
+* [Console Application](http://github.aliencube.org/Text-Encoding-Converter/downloads/TextEncodingConverter-Console-2.0.0.0.zip)
+* [Windows GUI Application](http://github.aliencube.org/Text-Encoding-Converter/downloads/TextEncodingConverter-Windows-2.0.0.0.zip)
 
 
-## Execution ##
+### Configuration ###
+
+Once unzip the file, it works with its default settings. However, if you want to change some settings, you should look after the `Aliencube.TextEncodingConverter.exe.config` file.
+
+```xml
+<textEncodingConverterSettings>
+    <encoding input="ks_c_5601-1987" output="utf-8" />
+    <converter extensions="csv,txt" backup="true" backupPath="Backup" outputPath="Output" />
+</textEncodingConverterSettings>
+```
+
+* `encoding.input`: Input encoding format. Default value is `ks_c_5601-1987`.
+* `encoding.output`: Output encoding format. Default value is `utf-8`.
+* `converter.extensions`: Comma delimited extensions to convert. As a default, the application only consider `.csv` and `.txt` files.
+* `converter.backup`: Value that specifies whether to backup the original files or not. Default value is `true`.
+* `converter.backupPath`: Relative or absolute path for backup. Default value is `Backup`. If `converter.backup` is set to `false`, this will be ignored.
+* `converter.outputPath`: Relative or absolute path for output. Default value is `Output`.
+
+
+### Console Application ###
 
 **Text Encoding Converter** console application requires the following parameters:
 
@@ -27,19 +49,28 @@ Aliencube.TextEncodingConverter.ConsoleApp.exe /d /ie:949 /oe:utf-8 /i:sample /o
 ```
 
 
-# Future Release #
+### Windows GUI Application ###
 
-* GUI Application for Windows
+**Text Encoding Converter** Windows GUI application is intuitive to use:
+
+* Choose input encoding option: `ks_c_5601-1987` is initially set as a default.
+* Choose output encoding option: `utf-8` is initially set as a default.
+* Select files to convert: Click the `Browse` button to select files.
+* Convert: Click the `Convert` button to convert.
+
+
+## Future Release ##
+
 * Console Application for Mac
 * GUI Application for Mac
 
 
-# Contribution #
+## Contribution ##
 
 Your contributions are always welcome! All your work should be done in your forked repository. Once you finish your work, please send us a pull request onto our `dev` branch for review.
 
 
-# License #
+## License ##
 
 **Text Encoding Converter** is released under [MIT License](http://opensource.org/licenses/MIT)
 

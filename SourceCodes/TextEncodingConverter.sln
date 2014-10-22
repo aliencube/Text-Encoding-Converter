@@ -1,33 +1,41 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.Services", "TextEncodingConverter.Services\TextEncodingConverter.Services.csproj", "{504D271C-C7BA-4A67-BE78-85814D5ED333}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{EC6BF3D6-4534-4DCE-8A8B-5FC81B402B45}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 Documents", "00 Documents", "{7107BFDE-62E8-4C7C-AD25-E1646A0E4691}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00_Documents", "00_Documents", "{7107BFDE-62E8-4C7C-AD25-E1646A0E4691}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Properties", "Properties", "{02CCF294-E55B-4FF6-8402-A1E1E56CD809}"
 	ProjectSection(SolutionItems) = preProject
 		..\Documents\Properties\SharedAssemblyInfo.cs = ..\Documents\Properties\SharedAssemblyInfo.cs
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Applications", "01 Applications", "{E54026DC-DC7E-43F3-BB00-CABD91BFA742}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01_Configs", "01_Configs", "{2668A0D5-12AF-4830-8E52-9608EA685CF8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Services", "02 Services", "{81A44B9F-5971-4ECE-A9E6-44F6257B0736}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02_Applications", "02_Applications", "{E54026DC-DC7E-43F3-BB00-CABD91BFA742}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99 Tests", "99 Tests", "{164F2C3F-995F-41E7-955B-F3F726F41866}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03_Services", "03_Services", "{81A44B9F-5971-4ECE-A9E6-44F6257B0736}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Models", "03 Models", "{6652A5F3-C444-483D-9080-B30905511309}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04_Models", "04_Models", "{6652A5F3-C444-483D-9080-B30905511309}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.ViewModels", "TextEncodingConverter.ViewModels\TextEncodingConverter.ViewModels.csproj", "{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99_Tests", "99_Tests", "{164F2C3F-995F-41E7-955B-F3F726F41866}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.Tests", "TextEncodingConverter.Tests\TextEncodingConverter.Tests.csproj", "{DD4770F4-892A-47BE-9DA0-64317BC8403D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.Tests", "99_Tests\TextEncodingConverter.Tests\TextEncodingConverter.Tests.csproj", "{DD4770F4-892A-47BE-9DA0-64317BC8403D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{EC6BF3D6-4534-4DCE-8A8B-5FC81B402B45}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.Configs", "01_Configs\TextEncodingConverter.Configs\TextEncodingConverter.Configs.csproj", "{4B06B8A0-AF4B-4FCD-8714-1E7A29E268F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.ConsoleApp", "TextEncodingConverter.ConsoleApp\TextEncodingConverter.ConsoleApp.csproj", "{25E2106F-3650-4F1F-8527-4F1B2185062B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.ConsoleApp", "02_Applications\TextEncodingConverter.ConsoleApp\TextEncodingConverter.ConsoleApp.csproj", "{25E2106F-3650-4F1F-8527-4F1B2185062B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.WpfApp", "02_Applications\TextEncodingConverter.WpfApp\TextEncodingConverter.WpfApp.csproj", "{3EA936C2-A0DC-4BA3-950C-ACB710F605E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.Services", "03_Services\TextEncodingConverter.Services\TextEncodingConverter.Services.csproj", "{504D271C-C7BA-4A67-BE78-85814D5ED333}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.DataContainers", "04_Models\TextEncodingConverter.DataContainers\TextEncodingConverter.DataContainers.csproj", "{D7D65EA6-77FF-4204-B7E9-0566B508A43B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextEncodingConverter.ViewModels", "04_Models\TextEncodingConverter.ViewModels\TextEncodingConverter.ViewModels.csproj", "{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,31 +43,46 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{504D271C-C7BA-4A67-BE78-85814D5ED333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{504D271C-C7BA-4A67-BE78-85814D5ED333}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{504D271C-C7BA-4A67-BE78-85814D5ED333}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{504D271C-C7BA-4A67-BE78-85814D5ED333}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD4770F4-892A-47BE-9DA0-64317BC8403D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DD4770F4-892A-47BE-9DA0-64317BC8403D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD4770F4-892A-47BE-9DA0-64317BC8403D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD4770F4-892A-47BE-9DA0-64317BC8403D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B06B8A0-AF4B-4FCD-8714-1E7A29E268F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B06B8A0-AF4B-4FCD-8714-1E7A29E268F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B06B8A0-AF4B-4FCD-8714-1E7A29E268F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B06B8A0-AF4B-4FCD-8714-1E7A29E268F6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{25E2106F-3650-4F1F-8527-4F1B2185062B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{25E2106F-3650-4F1F-8527-4F1B2185062B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25E2106F-3650-4F1F-8527-4F1B2185062B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25E2106F-3650-4F1F-8527-4F1B2185062B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EA936C2-A0DC-4BA3-950C-ACB710F605E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EA936C2-A0DC-4BA3-950C-ACB710F605E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EA936C2-A0DC-4BA3-950C-ACB710F605E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EA936C2-A0DC-4BA3-950C-ACB710F605E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{504D271C-C7BA-4A67-BE78-85814D5ED333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{504D271C-C7BA-4A67-BE78-85814D5ED333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{504D271C-C7BA-4A67-BE78-85814D5ED333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{504D271C-C7BA-4A67-BE78-85814D5ED333}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7D65EA6-77FF-4204-B7E9-0566B508A43B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7D65EA6-77FF-4204-B7E9-0566B508A43B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7D65EA6-77FF-4204-B7E9-0566B508A43B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7D65EA6-77FF-4204-B7E9-0566B508A43B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{504D271C-C7BA-4A67-BE78-85814D5ED333} = {81A44B9F-5971-4ECE-A9E6-44F6257B0736}
 		{02CCF294-E55B-4FF6-8402-A1E1E56CD809} = {7107BFDE-62E8-4C7C-AD25-E1646A0E4691}
+		{4B06B8A0-AF4B-4FCD-8714-1E7A29E268F6} = {2668A0D5-12AF-4830-8E52-9608EA685CF8}
 		{25E2106F-3650-4F1F-8527-4F1B2185062B} = {E54026DC-DC7E-43F3-BB00-CABD91BFA742}
-		{DD4770F4-892A-47BE-9DA0-64317BC8403D} = {164F2C3F-995F-41E7-955B-F3F726F41866}
+		{3EA936C2-A0DC-4BA3-950C-ACB710F605E0} = {E54026DC-DC7E-43F3-BB00-CABD91BFA742}
+		{504D271C-C7BA-4A67-BE78-85814D5ED333} = {81A44B9F-5971-4ECE-A9E6-44F6257B0736}
+		{D7D65EA6-77FF-4204-B7E9-0566B508A43B} = {6652A5F3-C444-483D-9080-B30905511309}
 		{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6} = {6652A5F3-C444-483D-9080-B30905511309}
+		{DD4770F4-892A-47BE-9DA0-64317BC8403D} = {164F2C3F-995F-41E7-955B-F3F726F41866}
 	EndGlobalSection
 EndGlobal
