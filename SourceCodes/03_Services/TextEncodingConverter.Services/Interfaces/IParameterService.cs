@@ -15,6 +15,11 @@ namespace Aliencube.TextEncodingConverter.Services.Interfaces
         IEnumerable<string> Args { get; set; }
 
         /// <summary>
+        /// Gets the list of encoding information instances.
+        /// </summary>
+        IEnumerable<EncodingInfoDataContainer> Encodings { get; }
+
+        /// <summary>
         /// Validates the parameter inputs.
         /// </summary>
         /// <returns>Returns <c>True</c>, if all parameters are valid; otherwise returns <c>False</c>.</returns>

@@ -4,6 +4,7 @@ using Aliencube.TextEncodingConverter.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Aliencube.TextEncodingConverter.Services
@@ -67,6 +68,30 @@ namespace Aliencube.TextEncodingConverter.Services
                 return this._args;
             }
             set { this._args = value; }
+        }
+
+        private IEnumerable<EncodingInfoDataContainer> _encodings;
+
+        /// <summary>
+        /// Gets the list of encoding information instances.
+        /// </summary>
+        public IEnumerable<EncodingInfoDataContainer> Encodings
+        {
+            get
+            {
+                if (this._encodings == null || !this._encodings.Any())
+                {
+                    this._encodings = Encoding.GetEncodings()
+                                              .Select(p => new EncodingInfoDataContainer()
+                                              {
+                                                  CodePage = p.CodePage,
+                                                  Name = p.Name,
+                                                  DisplayName = p.DisplayName
+                                              })
+                                              .OrderBy(p => p.Name);
+                }
+                return this._encodings;
+            }
         }
 
         /// <summary>
@@ -203,22 +228,14 @@ namespace Aliencube.TextEncodingConverter.Services
             var encoding = this._args.FirstOrDefault(p => p.ToLower().StartsWith("/ie:"));
             if (String.IsNullOrWhiteSpace(encoding))
             {
-                return new EncodingInfoDataContainer() { CodePage = 949, Name = "ks_c_5601-1987" };
+                return this.Encodings.Single(p => p.CodePage == 949);
             }
 
             encoding = encoding.Replace("/ie:", "");
 
-            var ei = new EncodingInfoDataContainer();
-            if (this._codePageRegex.IsMatch(encoding))
-            {
-                ei.CodePage = Int32.Parse(encoding);
-            }
-            else
-            {
-                ei.Name = encoding;
-            }
-
-            return ei;
+            return this._codePageRegex.IsMatch(encoding)
+                       ? this.Encodings.Single(p => p.CodePage == Int32.Parse(encoding))
+                       : this.Encodings.Single(p => String.Equals(p.Name, encoding, StringComparison.CurrentCultureIgnoreCase));
         }
 
         /// <summary>
@@ -230,22 +247,14 @@ namespace Aliencube.TextEncodingConverter.Services
             var encoding = this._args.FirstOrDefault(p => p.ToLower().StartsWith("/oe:"));
             if (String.IsNullOrWhiteSpace(encoding))
             {
-                return new EncodingInfoDataContainer() { CodePage = 65001, Name = "utf-8" };
+                return this.Encodings.Single(p => p.CodePage == 65001);
             }
 
             encoding = encoding.Replace("/oe:", "");
 
-            var ei = new EncodingInfoDataContainer();
-            if (this._codePageRegex.IsMatch(encoding))
-            {
-                ei.CodePage = Int32.Parse(encoding);
-            }
-            else
-            {
-                ei.Name = encoding;
-            }
-
-            return ei;
+            return this._codePageRegex.IsMatch(encoding)
+                       ? this.Encodings.Single(p => p.CodePage == Int32.Parse(encoding))
+                       : this.Encodings.Single(p => String.Equals(p.Name, encoding, StringComparison.CurrentCultureIgnoreCase));
         }
 
         /// <summary>

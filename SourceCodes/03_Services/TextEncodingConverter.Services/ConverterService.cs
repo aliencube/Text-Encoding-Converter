@@ -67,14 +67,7 @@ namespace Aliencube.TextEncodingConverter.Services
             {
                 if (this._encodings == null || !this._encodings.Any())
                 {
-                    this._encodings = Encoding.GetEncodings()
-                                              .Select(p => new EncodingInfoDataContainer()
-                                                           {
-                                                               CodePage = p.CodePage,
-                                                               Name = p.Name,
-                                                               DisplayName = p.DisplayName
-                                                           })
-                                              .OrderBy(p => p.Name);
+                    this._encodings = this._parameterService.Encodings;
                 }
                 return this._encodings;
             }
