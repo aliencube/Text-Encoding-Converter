@@ -57,13 +57,13 @@ namespace Aliencube.TextEncodingConverter.ViewModels
         {
             get
             {
-                if (this._encodings == null || !this._encodings.Any())
+                if (this._encodings != null && this._encodings.Any())
                 {
-                    var encodings = this._converter
-                                        .Encodings;
-
-                    this._encodings = new ObservableCollection<EncodingInfoDataContainer>(encodings);
+                    return this._encodings;
                 }
+
+                var encodings = this._converter.Encodings;
+                this._encodings = new ObservableCollection<EncodingInfoDataContainer>(encodings);
                 return this._encodings;
             }
             set
@@ -73,16 +73,17 @@ namespace Aliencube.TextEncodingConverter.ViewModels
             }
         }
 
-		private EncodingInfoDataContainer _inputEncoding;
+        private EncodingInfoDataContainer _inputEncoding;
 
         /// <summary>
         /// Gets or sets the input encoding.
         /// </summary>
         public EncodingInfoDataContainer InputEncoding
         {
-            get {
-                return _inputEncoding ??
-                       (_inputEncoding = Encodings.First(p => p.Name.StartsWith("ks_c_5601-1987")));
+            get
+            {
+                this._inputEncoding = this._inputEncoding ?? Encodings.Single(p => p.Name.ToLower() == "ks_c_5601-1987");
+                return this._inputEncoding;
             }
             set
             {
@@ -100,7 +101,8 @@ namespace Aliencube.TextEncodingConverter.ViewModels
         {
             get
             {
-                return _outputEncoding ?? (_outputEncoding = Encodings.First(p => p.Name.StartsWith("utf-8")));
+                this._outputEncoding = this._outputEncoding ?? this.Encodings.Single(p => p.Name.ToLower() == "utf-8");
+                return this._outputEncoding;
             }
             set
             {
