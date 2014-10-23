@@ -1,36 +1,8 @@
 ﻿<Window x:Class="Aliencube.TextEncodingConverter.WpfApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:containers="clr-namespace:Aliencube.TextEncodingConverter.DataContainers;assembly=Aliencube.TextEncodingConverter.DataContainers"
         Title="Text Encoding Converter">
-
-    <Window.Resources>
-        <DataTemplate x:Key="EncodingLabel">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <StackPanel Grid.Column="0">
-                    <Label Content="{Binding Path=Name}"
-                           Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualWidth}"
-                           />
-                </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <Label Content="{Binding Path=DisplayName}"
-                           Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualWidth}"
-                           />
-                </StackPanel>
-                <StackPanel Grid.Column="2">
-                    <Label Content="{Binding Path=CodePage}"
-                           Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualWidth}"
-                           />
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
-    </Window.Resources>
-    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -65,7 +37,6 @@
                 <StackPanel Grid.Column="0" Grid.Row="1" Height="30">
                     <ComboBox x:Name="InputEncoding"
                               ItemsSource="{Binding Encodings}"
-                              ItemTemplate="{StaticResource ResourceKey=EncodingLabel}"
                               SelectedValue="{Binding InputEncoding}"
                               Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualHeight}"
                               />
@@ -74,7 +45,6 @@
                 <StackPanel Grid.Column="1" Grid.Row="1">
                     <ComboBox x:Name="OutputEncoding"
                               ItemsSource="{Binding Encodings}"
-                              ItemTemplate="{StaticResource ResourceKey=EncodingLabel}"
                               SelectedValue="{Binding OutputEncoding}"
                               Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualHeight}"
                               />

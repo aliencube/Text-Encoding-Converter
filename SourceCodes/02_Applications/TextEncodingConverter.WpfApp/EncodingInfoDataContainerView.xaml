@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:containers="clr-namespace:Aliencube.TextEncodingConverter.DataContainers;assembly=Aliencube.TextEncodingConverter.DataContainers">
+    <DataTemplate DataType="{x:Type containers:EncodingInfoDataContainer}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <Label Content="{Binding Path=Name}"
+                           Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualWidth}"
+                           />
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <Label Content="{Binding Path=DisplayName}"
+                           Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualWidth}"
+                           />
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <Label Content="{Binding Path=CodePage}"
+                           Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=ActualWidth}"
+                           />
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>
