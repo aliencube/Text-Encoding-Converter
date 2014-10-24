@@ -25,7 +25,7 @@ namespace Aliencube.TextEncodingConverter.ViewModels
             get { return this._onCanExecute; }
         }
 
-        public Action<object> OnExecuted
+        public Action<object> OnExecute
         {
             get { return this._onExecute; }
         }

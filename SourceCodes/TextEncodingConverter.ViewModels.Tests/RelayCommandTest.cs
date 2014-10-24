@@ -22,7 +22,7 @@ namespace TextEncodingConverter.ViewModels.Tests
         }
 
         [Test]
-        public void InitializeWithNullOnExecutedThrows()
+        public void InitializeWithNullOnExecuteThrows()
         {
             Assert.Throws<ArgumentNullException>(() => new RelayCommand(x => false, null));
         }
@@ -39,14 +39,14 @@ namespace TextEncodingConverter.ViewModels.Tests
         }
 
         [Test]
-        public void OnExecutedIsCorrect()
+        public void OnExecuteIsCorrect()
         {
-            Action<object> onExecuted = x => { };
-            var sut = new RelayCommand(x => false, onExecuted);
+            Action<object> onExecute = x => { };
+            var sut = new RelayCommand(x => false, onExecute);
 
-            var actual = sut.OnExecuted;
+            var actual = sut.OnExecute;
 
-            Assert.AreEqual(onExecuted, actual);
+            Assert.AreEqual(onExecute, actual);
         }
 
         [Test]
