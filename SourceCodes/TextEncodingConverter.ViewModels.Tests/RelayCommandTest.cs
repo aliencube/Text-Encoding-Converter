@@ -25,5 +25,16 @@ namespace TextEncodingConverter.ViewModels.Tests
 
             Assert.AreEqual(onCanExecute, actual);
         }
+
+        [Test]
+        public void OnExecutedIsCorrect()
+        {
+            Action<object> onExecuted = x => { };
+            var sut = new RelayCommand(null, onExecuted);
+
+            var actual = sut.OnExecuted;
+
+            Assert.AreEqual(onExecuted, actual);
+        }
     }
 }
