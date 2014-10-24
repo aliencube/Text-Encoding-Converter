@@ -48,5 +48,23 @@ namespace TextEncodingConverter.ViewModels.Tests
 
             Assert.AreEqual(onExecuted, actual);
         }
+
+        [Test]
+        public void CanExecuteCallsOnCanExecute()
+        {
+            var parameter = new object();
+            var expected = true;
+            Predicate<object> onCanExecute =
+                x =>
+                {
+                    Assert.AreEqual(parameter, x);
+                    return expected;
+                };
+            var sut = new RelayCommand(onCanExecute, x => { });
+
+            var actual = sut.CanExecute(parameter);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

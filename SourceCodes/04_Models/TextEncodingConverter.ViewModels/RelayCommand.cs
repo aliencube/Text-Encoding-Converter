@@ -32,7 +32,7 @@ namespace Aliencube.TextEncodingConverter.ViewModels
 
         public bool CanExecute(object parameter)
         {
-            throw new System.NotImplementedException();
+            return this.OnCanExecute(parameter);
         }
 
         public void Execute(object parameter)
