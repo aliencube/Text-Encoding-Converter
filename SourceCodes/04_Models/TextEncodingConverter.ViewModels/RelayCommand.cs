@@ -37,7 +37,7 @@ namespace Aliencube.TextEncodingConverter.ViewModels
 
         public void Execute(object parameter)
         {
-            throw new System.NotImplementedException();
+            this.OnExecute(parameter);
         }
 
         public event System.EventHandler CanExecuteChanged;

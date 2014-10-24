@@ -66,5 +66,23 @@ namespace TextEncodingConverter.ViewModels.Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [Test]
+        public void ExecuteCallsOnExecute()
+        {
+            var parameter = new object();
+            var verified = false;
+            Action<object> onExecute =
+                x =>
+                {
+                    Assert.AreEqual(parameter, x);
+                    verified = true;
+                };
+            var sut = new RelayCommand(x => false, onExecute);
+
+            sut.Execute(parameter);
+
+            Assert.IsTrue(verified, "Verified...");
+        }
     }
 }
