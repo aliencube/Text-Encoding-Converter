@@ -46,9 +46,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelayCommandTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\04_Models\TextEncodingConverter.ViewModels\TextEncodingConverter.ViewModels.csproj">
+      <Project>{FE60181D-51A2-428A-BE4B-0F5B8C0E8CC6}</Project>
+      <Name>TextEncodingConverter.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
