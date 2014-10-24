@@ -2,7 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:containers="clr-namespace:Aliencube.TextEncodingConverter.DataContainers;assembly=Aliencube.TextEncodingConverter.DataContainers"
-        Title="Text Encoding Converter">
+        Title="Text Encoding Converter"
+        >
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
