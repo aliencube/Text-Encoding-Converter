@@ -11,15 +11,27 @@ namespace TextEncodingConverter.ViewModels.Tests
         [Test]
         public void SutIsCommand()
         {
-            var sut = new RelayCommand(null, null);
+            var sut = new RelayCommand(x => false, x => { });
             Assert.IsInstanceOf<ICommand>(sut);
+        }
+
+        [Test]
+        public void InitializeWithNullOnCanExecuteThrows()
+        {
+            Assert.Throws<ArgumentNullException>(() => new RelayCommand(null, x => { }));
+        }
+
+        [Test]
+        public void InitializeWithNullOnExecutedThrows()
+        {
+            Assert.Throws<ArgumentNullException>(() => new RelayCommand(x => false, null));
         }
 
         [Test]
         public void OnCanExecuteIsCorrect()
         {
             Predicate<object> onCanExecute = x => false;
-            var sut = new RelayCommand(onCanExecute, null);
+            var sut = new RelayCommand(onCanExecute, x => { });
 
             var actual = sut.OnCanExecute;
 
@@ -30,7 +42,7 @@ namespace TextEncodingConverter.ViewModels.Tests
         public void OnExecutedIsCorrect()
         {
             Action<object> onExecuted = x => { };
-            var sut = new RelayCommand(null, onExecuted);
+            var sut = new RelayCommand(x => false, onExecuted);
 
             var actual = sut.OnExecuted;
 
