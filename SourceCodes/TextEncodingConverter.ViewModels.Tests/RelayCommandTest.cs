@@ -84,5 +84,19 @@ namespace TextEncodingConverter.ViewModels.Tests
 
             Assert.IsTrue(verified, "Verified...");
         }
+
+        [Test]
+        public void CanExecuteChangedThrowsWhenSubscribed()
+        {
+            var sut = new RelayCommand(x => false, x => { });
+            Assert.Throws<NotSupportedException>(() => sut.CanExecuteChanged += null);
+        }
+
+        [Test]
+        public void CanExecuteChangedThrowsWhenUnsubscribed()
+        {
+            var sut = new RelayCommand(x => false, x => { });
+            Assert.Throws<NotSupportedException>(() => sut.CanExecuteChanged -= null);
+        }
     }
 }

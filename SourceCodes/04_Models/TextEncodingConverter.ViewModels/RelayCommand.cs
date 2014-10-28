@@ -40,6 +40,10 @@ namespace Aliencube.TextEncodingConverter.ViewModels
             this.OnExecute(parameter);
         }
 
-        public event System.EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { throw new NotSupportedException(); }
+            remove { throw new NotSupportedException(); }
+        }
     }
 }
